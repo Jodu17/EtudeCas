@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     SDL_WM_SetCaption("ECSMP - Etude de Cas", NULL);
 
     /* Chargement d'une image Bitmap dans une surface */
-    imageDeFond = IMG_Load("images/lenna.bmp");
+    imageDeFond = IMG_Load("images/Lenna.png");
 //SDL_FillRect (ecran, NULL, SDL_MapRGB(ecran->format, 20, 50, 120));
     /* On blitte par-dessus l'écran */
     SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
