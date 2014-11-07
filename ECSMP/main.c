@@ -13,9 +13,9 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 
 //Constantes sur les caractéristiques des sprites
 
-#define TAILLE_SPRITE 34
-#define NB_SPRITES_LARGEUR 12
-#define NB_SPRITES_HAUTEUR 12
+#define TAILLE_SPRITE 16
+#define NB_SPRITES_LARGEUR 10
+#define NB_SPRITES_HAUTEUR 10
 #define LARGEUR_FENETRE TAILLE_SPRITE*NB_SPRITES_LARGEUR
 #define HAUTEUR_FENETRE TAILLE_SPRITE*NB_SPRITES_HAUTEUR
 
@@ -27,27 +27,39 @@ void pause();
 int main(int argc, char *argv[])
 {
     SDL_Surface *ecran = NULL; // Le pointeur qui va stocker la surface de l'écran
-    SDL_Surface *imageDeFond = NULL; // Le pointeur qui va stocker l'image de fond
-    //SDL_Event event;
-    SDL_Rect positionFond,srcrect,dstrect;
+    SDL_Surface *sprites = NULL; // Le pointeur qui va stocker l'image de fond
+    SDL_Rect positionChemin,positionHerbe,PosFinal;
+    int i,j;
+    int carte[10][10]= {{1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {0,0,0,0,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,0,0,0,0,0},
+                        {1,1,1,1,0,1,1,1,1,1},
+                        {1,1,1,1,0,1,1,1,1,1}};
 
-    positionFond.x = 0;
-    positionFond.y = 0;
-    positionFond.h = TAILLE_SPRITE;
-    positionFond.w = TAILLE_SPRITE;
+    positionChemin.x = 16*2;
+    positionChemin.y = 16;
+    positionChemin.h = TAILLE_SPRITE;
+    positionChemin.w = TAILLE_SPRITE;
 
-    /*srcrect.x = 0;
-    srcrect.y = 0;
+    positionHerbe.x = 16;
+    positionHerbe.y = 16*8;
+    positionHerbe.w = 16;
+    positionHerbe.h = 16;
 
-    dstrect.x = 0;
-    dstrect.y = 0;
-    dstrect.w = 32;
-    dstrect.h = 32;*/
+    PosFinal.x = 0;
+    PosFinal.y = 0;
+    PosFinal.w = 16;
+    PosFinal.h = 16;
 
-    SDL_Init(SDL_INIT_VIDEO); // Initialisation de la SDL
+    SDL_Init(SDL_INIT_VIDEO);
 
-    ecran = SDL_SetVideoMode(1200, 600, 32, SDL_HWSURFACE); // Ouverture de la fenêtre
-    if (ecran == NULL) // Si l'ouverture a échoué, on le note et on arrête
+    ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, TAILLE_SPRITE, SDL_HWSURFACE); // Ouverture de la fenêtre
+    if (ecran == NULL)
     {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -55,17 +67,33 @@ int main(int argc, char *argv[])
 
     SDL_WM_SetCaption("ECSMP - Etude de Cas", NULL);
 
-    /* Chargement d'une image Bitmap dans une surface */
-    imageDeFond = IMG_Load("images/Lenna.png");
-//SDL_FillRect (ecran, NULL, SDL_MapRGB(ecran->format, 20, 50, 120));
-    /* On blitte par-dessus l'écran */
-    SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-    //SDL_BlitSurface(imageDeFond, NULL, ecran, &dstrect);
+    sprites = IMG_Load("images/sprites.bmp");
+
+    for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+    {
+        for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+        {
+
+            PosFinal.x = i*TAILLE_SPRITE;
+            PosFinal.y = j*TAILLE_SPRITE;
+
+            switch(carte[i][j])
+            {
+                case CHEMIN:
+                    SDL_BlitSurface(sprites, &positionChemin, ecran, &PosFinal);
+                    break;
+                case HERBE:
+                    SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
+                    break;
+            }
+        }
+    }
+
     SDL_Flip(ecran);
 
     pause(); // Mise en pause du programme
 
-    SDL_FreeSurface(imageDeFond); /* On libère la surface */
+    SDL_FreeSurface(sprites); /* On libère la surface */
 
     SDL_Quit(); // Arrêt de la SDL
 
