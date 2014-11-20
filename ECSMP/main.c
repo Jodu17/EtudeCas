@@ -10,6 +10,7 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
+//#include "include\Astar.c"
 
 //Constantes sur les caractéristiques des sprites
 
@@ -93,7 +94,9 @@ int main(int argc, char *argv[])
 
     pause(); // Mise en pause du programme
 
-    SDL_FreeSurface(sprites); /* On libère la surface */
+    SDL_FreeSurface(sprites); // On libère la surface
+
+
 
     SDL_Quit(); // Arrêt de la SDL
 
