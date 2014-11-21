@@ -93,7 +93,7 @@ void fillRow(char* line,int i){
 		init_node(&grid[i][j],i,j,atoi(token));
 	}
 }
-
+/*
 int main(int argc, char **argv){
 
 	FILE *file=fopen("images/map.txt","r");
@@ -120,4 +120,4 @@ int main(int argc, char **argv){
 
 	fclose(file);
 	return 0;
-}
+}*/

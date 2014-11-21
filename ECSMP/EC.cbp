@@ -34,6 +34,9 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="personnage.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="testAstar.c">
 			<Option compilerVar="CC" />
 		</Unit>
