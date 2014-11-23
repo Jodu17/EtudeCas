@@ -31,10 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="Dijkstra.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="testAstar.c">
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
