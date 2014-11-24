@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">
+		<Unit filename="personnage.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="testAstar.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
