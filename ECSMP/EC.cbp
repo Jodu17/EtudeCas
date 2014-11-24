@@ -34,18 +34,14 @@
 		<Unit filename="Dijkstra.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="include/personnage.h" />
 		<Unit filename="main.c">
-		<Unit filename="personnage.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="testAstar.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
