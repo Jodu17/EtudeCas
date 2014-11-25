@@ -6,18 +6,33 @@
 
 void initilisationPositions()
 {
+//    positionChemin.x = TAILLE_SPRITE*2;
+//    positionChemin.y = TAILLE_SPRITE;
+//    positionChemin.h = TAILLE_SPRITE;
+//    positionChemin.w = TAILLE_SPRITE;
+
     positionChemin.x = TAILLE_SPRITE*2;
-    positionChemin.y = TAILLE_SPRITE;
+    positionChemin.y = 0;
     positionChemin.h = TAILLE_SPRITE;
     positionChemin.w = TAILLE_SPRITE;
 
-    positionHerbe.x = TAILLE_SPRITE;
-    positionHerbe.y = TAILLE_SPRITE*8;
+//    positionHerbe.x = TAILLE_SPRITE;
+//    positionHerbe.y = TAILLE_SPRITE*8;
+//    positionHerbe.w = TAILLE_SPRITE;
+//    positionHerbe.h = TAILLE_SPRITE;
+
+    positionHerbe.x = TAILLE_SPRITE*3;
+    positionHerbe.y = 0;
     positionHerbe.w = TAILLE_SPRITE;
     positionHerbe.h = TAILLE_SPRITE;
 
-    positionPerso.x = TAILLE_SPRITE*4;
-    positionPerso.y = TAILLE_SPRITE*9;
+//    positionPerso.x = TAILLE_SPRITE*4;
+//    positionPerso.y = TAILLE_SPRITE*9;
+//    positionPerso.w = TAILLE_SPRITE;
+//    positionPerso.h = TAILLE_SPRITE;
+
+    positionPerso.x = 0;
+    positionPerso.y = 0;
     positionPerso.w = TAILLE_SPRITE;
     positionPerso.h = TAILLE_SPRITE;
 

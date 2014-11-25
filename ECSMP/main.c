@@ -19,6 +19,7 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 
 //Constantes sur les caractéristiques des sprites
 
+void gestionRamassage();
 
 // Enumération globale qui permettra de faire une correspondance entre un nombre et un type de sprite
 
@@ -35,6 +36,16 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
                         {1,1,1,1,0,0,0,0,0,0},
                         {1,1,1,1,0,1,1,1,1,1},
                         {1,1,1,1,0,1,1,1,1,1}};
+    int objet[10][10]=  {{0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,1,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,0,0}};
 
 int main(int argc, char *argv[])
 {
@@ -51,9 +62,13 @@ int main(int argc, char *argv[])
 
     SDL_WM_SetCaption("ECSMP - Etude de Cas", NULL);
 
-    sprites = IMG_Load("images/sprites.bmp");
+    sprites = IMG_Load("images/sprites1.bmp");
+    perso = IMG_Load("images/perso.bmp");
 
+    //Seulement au début
     formationCarte();
+    placementObjets(1);
+    versBas();
 
     SDL_Flip(ecran);
 
@@ -84,7 +99,9 @@ int main(int argc, char *argv[])
             }
             SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
             formationCarte();
-            SDL_BlitSurface(sprites, &positionPerso, ecran, &posPerso);
+            //placementObjets(0);
+            gestionRamassage();
+            SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
             SDL_Flip(ecran);
             break;
         }
@@ -116,6 +133,48 @@ void formationCarte()
                     SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
                     break;
             }
+        }
+    }
+}
+void placementObjets(int t)
+{
+    if(t==1)
+    {
+        for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+        {
+            for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+            {
+
+                PosFinal.x = i*TAILLE_SPRITE;
+                PosFinal.y = j*TAILLE_SPRITE;
+
+                positionObjet.x = 0;
+                positionObjet.y = TAILLE_SPRITE;
+                positionObjet.w = TAILLE_SPRITE;
+                positionObjet.h = TAILLE_SPRITE;
+                if(objet[i][j]==1)
+                {
+                        SDL_BlitSurface(sprites, &positionObjet, ecran, &PosFinal);
+                        break;
+                }
+            }
+        }
+    }
+}
+void gestionRamassage()
+{
+    for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+    {
+        for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+        {
+            if(objet[i][j]==1)
+            {
+                if((posPerso.x/TAILLE_SPRITE==j)&&(posPerso.y/TAILLE_SPRITE==i))
+                {
+                    placementObjets(0);
+                }
+            }
+            placementObjets(1);
         }
     }
 }
