@@ -1,10 +1,29 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include "personnage.h"
 
+void versHaut()
+{
+    if(posPerso.y>0)
+        posPerso.y-=TAILLE_SPRITE;
+}
 
-typedef struct personnage{
-    int orientation=0;//0:N, 1:E, 2:S, 3:O
-    int positionHorizontalPrec=0;//Position n-1 pour l'orientation du personnage à l'instant n
-    int positionVerticalPrec=0;//Position n-1
-    int positionHorizontal=0;
-    int positionVertical=0;
+void versBas()
+{
+    if(posPerso.y<HAUTEUR_FENETRE-TAILLE_SPRITE)
+        posPerso.y+=TAILLE_SPRITE;
+}
 
-}personnage;
+void versGauche()
+{
+    if(posPerso.x>0)
+        posPerso.x-=TAILLE_SPRITE;
+}
+
+void versDroite()
+{
+    if(posPerso.x<LARGEUR_FENETRE-TAILLE_SPRITE)
+        posPerso.x+=TAILLE_SPRITE;
+}

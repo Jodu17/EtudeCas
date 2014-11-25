@@ -1,4 +1,4 @@
-
+/*
 typedef struct Node{
     int positionx;
 	int positiony;
@@ -47,7 +47,7 @@ for (l=0;l<10;l++){
     }
 }
 
-
+*/
 
 
 
