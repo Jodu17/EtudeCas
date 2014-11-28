@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#define BIG_EXAMPLE
 
 typedef struct node_t node_t, *heap_t;
 typedef struct edge_t edge_t;
@@ -104,12 +103,13 @@ node_t * pop_queue()
 }
 
 /* --- Dijkstra stuff; unreachable nodes will never make into the queue --- */
-void calc_all(node_t *start)
+void calc_all(node_t *start, double p)
 {
 	node_t *lead;
 	edge_t *e;
 
-	set_dist(start, start, 0);
+
+	set_dist(start, start, p);
 	while ((lead = pop_queue()))
 		for (e = lead->edge; e; e = e->sibling)
 			set_dist(e->nd, lead, lead->dist + e->len);
@@ -118,18 +118,31 @@ void calc_all(node_t *start)
 void show_path(node_t *nd)
 {
 	if (nd->via == nd)
-		printf("%s", nd->name);
+    ;
+		//printf("%s", nd->name);
 	else if (!nd->via)
-		printf("%s(unreached)", nd->name);
+	;
+		//printf("%s(unreached)", nd->name);
 	else {
 		show_path(nd->via);
-		printf("-> %s(%g) ", nd->name, nd->dist);
+		if(nd==nd->via+1)
+            versDroite();
+            SDL_Delay(20);
+        if(nd==nd->via-1)
+            versGauche();
+            SDL_Delay(20);
+        if(nd==nd->via+10)
+            versBas();
+            SDL_Delay(20);
+        if(nd==nd->via-10)
+            versHaut();
+            SDL_Delay(20);
+		//printf("-> %s(%g) ", nd->name, nd->dist);
 	}
 }
 
-int main(void)
+int dijkstra()
 {
-    /* BIG_EXAMPLE */
 	int i, j, c;
 
 #	define N_NODES 100
@@ -138,9 +151,6 @@ int main(void)
 	for (i = 0; i < N_NODES; i++)
 		sprintf(nodes[i].name, "%d", i);
 
-	/* given any pair of nodes, there's about 50% chance they are not
-	   connected; if connected, the cost is randomly chosen between 0
-	   and 49 (inclusive! see output for consequences) */
 	for (i = 0; i < N_NODES; i++) {
 
             if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99)
@@ -156,12 +166,15 @@ int main(void)
 	heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
 
-	calc_all(nodes);
+	calc_all(nodes,0);
+    show_path(nodes + 18);
 
+    calc_all(nodes+18,0);
+    show_path(nodes + 40);
+
+    calc_all(nodes+40,0);
     show_path(nodes + 99);
-    putchar('\n');
 
-	/* real programmers don't free memories (they use Fortran) */
 	free_edges();
 	free(heap);
 	free(nodes);

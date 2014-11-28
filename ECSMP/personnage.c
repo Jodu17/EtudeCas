@@ -13,6 +13,9 @@ void versHaut()
         positionPerso.y = TAILLE_SPRITE*2;
         positionPerso.w = TAILLE_SPRITE;
         positionPerso.h = TAILLE_SPRITE-1;
+        formationCarte();
+        SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+        SDL_Flip(ecran);
     }
 }
 
@@ -25,6 +28,9 @@ void versBas()
         positionPerso.y = TAILLE_SPRITE*3;
         positionPerso.w = TAILLE_SPRITE;
         positionPerso.h = TAILLE_SPRITE;
+        formationCarte();
+        SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+        SDL_Flip(ecran);
     }
 }
 
@@ -37,6 +43,9 @@ void versGauche()
         positionPerso.y = TAILLE_SPRITE;
         positionPerso.w = TAILLE_SPRITE;
         positionPerso.h = TAILLE_SPRITE;
+        formationCarte();
+        SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+        SDL_Flip(ecran);
     }
 }
 
@@ -49,5 +58,8 @@ void versDroite()
         positionPerso.y = 0;
         positionPerso.w = TAILLE_SPRITE;
         positionPerso.h = TAILLE_SPRITE;
+        formationCarte();
+        SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+        SDL_Flip(ecran);
     }
 }
