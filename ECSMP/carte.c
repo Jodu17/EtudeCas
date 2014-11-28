@@ -44,6 +44,13 @@ void initilisationPositions()
     posPerso.x = 0;
     posPerso.y = 0;
 
+    sprites = IMG_Load("images/sprites1.bmp");
+    perso = IMG_Load("images/perso.bmp");
+    gland = IMG_Load("images/gland.bmp");
+
+    SDL_SetColorKey(perso, SDL_SRCCOLORKEY, SDL_MapRGB(perso->format, 255, 255, 255));
+    SDL_SetColorKey(sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 255, 255));
+    SDL_SetColorKey(gland, SDL_SRCCOLORKEY, SDL_MapRGB(gland->format, 255, 255, 255));
 
 }
 

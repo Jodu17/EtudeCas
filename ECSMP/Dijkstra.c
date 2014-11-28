@@ -127,44 +127,44 @@ void show_path(node_t *nd)
 	}
 }
 
-int main(void)
-{
-    /* BIG_EXAMPLE */
-	int i, j, c;
-
-#	define N_NODES 100
-	node_t *nodes = calloc(sizeof(node_t), N_NODES);
-
-	for (i = 0; i < N_NODES; i++)
-		sprintf(nodes[i].name, "%d", i);
-
-	/* given any pair of nodes, there's about 50% chance they are not
-	   connected; if connected, the cost is randomly chosen between 0
-	   and 49 (inclusive! see output for consequences) */
-	for (i = 0; i < N_NODES; i++) {
-
-            if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99)
-            add_edge(nodes + i, nodes + i+1, 1);
-            if(i!=0 && i!=10 && i!=20 && i!=30 && i!=40 && i!=50 && i!=60 && i!=70 && i!=80 && i!=90)
-			add_edge(nodes + i, nodes + i-1, 1);
-            if(i>9)
-			add_edge(nodes + i, nodes + i-10, 1);
-			if(i<90)
-			add_edge(nodes + i, nodes + i+10, 1);
-		}
-
-	heap = calloc(sizeof(heap_t), N_NODES + 1);
-	heap_len = 0;
-
-	calc_all(nodes);
-
-    show_path(nodes + 99);
-    putchar('\n');
-
-	/* real programmers don't free memories (they use Fortran) */
-	free_edges();
-	free(heap);
-	free(nodes);
-
-	return 0;
-}
+//int main(void)
+//{
+//    /* BIG_EXAMPLE */
+//	int i, j, c;
+//
+//#	define N_NODES 100
+//	node_t *nodes = calloc(sizeof(node_t), N_NODES);
+//
+//	for (i = 0; i < N_NODES; i++)
+//		sprintf(nodes[i].name, "%d", i);
+//
+//	/* given any pair of nodes, there's about 50% chance they are not
+//	   connected; if connected, the cost is randomly chosen between 0
+//	   and 49 (inclusive! see output for consequences) */
+//	for (i = 0; i < N_NODES; i++) {
+//
+//            if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99)
+//            add_edge(nodes + i, nodes + i+1, 1);
+//            if(i!=0 && i!=10 && i!=20 && i!=30 && i!=40 && i!=50 && i!=60 && i!=70 && i!=80 && i!=90)
+//			add_edge(nodes + i, nodes + i-1, 1);
+//            if(i>9)
+//			add_edge(nodes + i, nodes + i-10, 1);
+//			if(i<90)
+//			add_edge(nodes + i, nodes + i+10, 1);
+//		}
+//
+//	heap = calloc(sizeof(heap_t), N_NODES + 1);
+//	heap_len = 0;
+//
+//	calc_all(nodes);
+//
+//    show_path(nodes + 99);
+//    putchar('\n');
+//
+//	/* real programmers don't free memories (they use Fortran) */
+//	free_edges();
+//	free(heap);
+//	free(nodes);
+//
+//	return 0;
+//}

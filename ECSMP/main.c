@@ -11,22 +11,18 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
-#include "personnage.h"
 #include "carte.c"
 #include "personnage.c"
 
 //#include "include\Astar.c"
 
-//Constantes sur les caractéristiques des sprites
-
+//Prototype de fonction(s)
 void gestionRamassage();
-
-// Enumération globale qui permettra de faire une correspondance entre un nombre et un type de sprite
 
     SDL_Event event;
     int i,j;
     bool exec = true;
-    int carte[10][10]=     {{1,1,1,1,0,1,1,1,1,1},
+    int carte[10][10]=  {{1,1,1,1,0,1,1,1,1,1},
                         {1,1,1,1,0,1,1,1,1,1},
                         {1,1,1,1,0,1,1,1,1,1},
                         {1,1,1,1,0,1,1,1,1,1},
@@ -41,7 +37,7 @@ void gestionRamassage();
                         {0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0},
-                        {0,0,0,0,0,1,0,0,0,0},
+                        {0,0,0,0,1,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0},
@@ -62,13 +58,10 @@ int main(int argc, char *argv[])
 
     SDL_WM_SetCaption("ECSMP - Etude de Cas", NULL);
 
-    sprites = IMG_Load("images/sprites1.bmp");
-    perso = IMG_Load("images/perso.bmp");
-
     //Seulement au début
     formationCarte();
-    placementObjets(1);
-    versBas();
+    placementObjets(0);
+    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
 
     SDL_Flip(ecran);
 
@@ -99,7 +92,7 @@ int main(int argc, char *argv[])
             }
             SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
             formationCarte();
-            //placementObjets(0);
+            placementObjets(0);
             gestionRamassage();
             SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
             SDL_Flip(ecran);
@@ -149,12 +142,13 @@ void placementObjets(int t)
                 PosFinal.y = j*TAILLE_SPRITE;
 
                 positionObjet.x = 0;
-                positionObjet.y = TAILLE_SPRITE;
+                positionObjet.y = 0;
                 positionObjet.w = TAILLE_SPRITE;
                 positionObjet.h = TAILLE_SPRITE;
+
                 if(objet[i][j]==1)
                 {
-                        SDL_BlitSurface(sprites, &positionObjet, ecran, &PosFinal);
+                        SDL_BlitSurface(gland, &positionObjet, ecran, &PosFinal);
                         break;
                 }
             }
@@ -169,7 +163,7 @@ void gestionRamassage()
         {
             if(objet[i][j]==1)
             {
-                if((posPerso.x/TAILLE_SPRITE==j)&&(posPerso.y/TAILLE_SPRITE==i))
+                if(posPerso.x/TAILLE_SPRITE==j)/*&&(posPerso.y/TAILLE_SPRITE==i))*/
                 {
                     placementObjets(0);
                 }
