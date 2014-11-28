@@ -8,7 +8,7 @@
 #define HAUTEUR_FENETRE TAILLE_SPRITE*NB_SPRITES_HAUTEUR
 
 enum {CHEMIN,HERBE};
-SDL_Surface *ecran,*sprites,*perso;
+SDL_Surface *ecran,*sprites,*perso,*gland;
 SDL_Rect positionChemin,positionHerbe,PosFinal,positionPerso,posPerso,positionObjet;
 int carre[10][10];
 
