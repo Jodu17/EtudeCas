@@ -140,7 +140,7 @@ void show_path(node_t *nd)
 	}
 }
 
-int main(int argc, char *argv[])
+int dijkstra()
 {
 	int i;
 
