@@ -23,7 +23,7 @@ struct node_t {
 #ifdef BIG_EXAMPLE
 #	define BLOCK_SIZE (1024 * 32 - 1)
 #else
-#	define BLOCK_SIZE 15
+#	define BLOCK_SIZE 32
 #endif
 edge_t *edge_root = 0, *e_next = 0;
 
@@ -71,8 +71,8 @@ void set_dist(node_t *nd, node_t *via, double d)
 	if (!i) i = ++heap_len;
 
 	/* upheap */
-	for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
-		(heap[i] = heap[j])->heap_idx = i;
+	/*for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
+		(heap[i] = heap[j])->heap_idx = i;*/
 
 	heap[i] = nd;
 	nd->heap_idx = i;
@@ -103,13 +103,13 @@ node_t * pop_queue()
 }
 
 /* --- Dijkstra stuff; unreachable nodes will never make into the queue --- */
-void calc_all(node_t *start, double p)
+void calc_all(node_t *start)
 {
 	node_t *lead;
 	edge_t *e;
 
 
-	set_dist(start, start, p);
+	set_dist(start, start, 0);
 	while ((lead = pop_queue()))
 		for (e = lead->edge; e; e = e->sibling)
 			set_dist(e->nd, lead, lead->dist + e->len);
@@ -118,32 +118,31 @@ void calc_all(node_t *start, double p)
 void show_path(node_t *nd)
 {
 	if (nd->via == nd)
-    ;
-		//printf("%s", nd->name);
+		printf("%s", nd->name);
 	else if (!nd->via)
 	;
 		//printf("%s(unreached)", nd->name);
 	else {
-		show_path(nd->via);
-		if(nd==nd->via+1)
+		/*if(nd==nd->via+1)
             versDroite();
-            SDL_Delay(20);
+            SDL_Delay(90);
         if(nd==nd->via-1)
             versGauche();
-            SDL_Delay(20);
+            SDL_Delay(90);
         if(nd==nd->via+10)
             versBas();
-            SDL_Delay(20);
+            SDL_Delay(90);
         if(nd==nd->via-10)
             versHaut();
-            SDL_Delay(20);
-		//printf("-> %s(%g) ", nd->name, nd->dist);
+            SDL_Delay(90);*/
+        show_path(nd->via);
+		printf("-> %s(%g) ", nd->name, nd->dist);
 	}
 }
 
-int dijkstra()
+int main(int argc, char *argv[])
 {
-	int i, j, c;
+	int i;
 
 #	define N_NODES 100
 	node_t *nodes = calloc(sizeof(node_t), N_NODES);
@@ -152,7 +151,6 @@ int dijkstra()
 		sprintf(nodes[i].name, "%d", i);
 
 	for (i = 0; i < N_NODES; i++) {
-
             if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99)
             add_edge(nodes + i, nodes + i+1, 1);
             if(i!=0 && i!=10 && i!=20 && i!=30 && i!=40 && i!=50 && i!=60 && i!=70 && i!=80 && i!=90)
@@ -161,23 +159,22 @@ int dijkstra()
 			add_edge(nodes + i, nodes + i-10, 1);
 			if(i<90)
 			add_edge(nodes + i, nodes + i+10, 1);
-		}
+	}
+
+
+
 
 	heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
 
-	calc_all(nodes,0);
-    show_path(nodes + 18);
+	calc_all(nodes);
+    show_path(nodes + 59);
 
-    calc_all(nodes+18,0);
-    show_path(nodes + 40);
+    //free(heap);
 
-    calc_all(nodes+40,0);
-    show_path(nodes + 99);
+    //show_path(nodes + 41);
 
+    free(heap);
+    free(nodes);
 	free_edges();
-	free(heap);
-	free(nodes);
-
-	return 0;
 }
