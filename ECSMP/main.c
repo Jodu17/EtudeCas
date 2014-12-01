@@ -17,6 +17,7 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 
 //Prototype de fonction(s)
 void gestionRamassage();
+void rafraichissementPositionPerso();
 
     SDL_Event event;
     int i,j;
@@ -91,11 +92,11 @@ int main(int argc, char *argv[])
                     break;
             }
             //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-            formationCarte();
-            placementObjets(1);
-            gestionRamassage();
-            SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
-            SDL_Flip(ecran);
+            //formationCarte();
+            //placementObjets(1);
+            //gestionRamassage();
+            //SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+            //SDL_Flip(ecran);
             break;
         }
     }
@@ -109,15 +110,15 @@ int main(int argc, char *argv[])
 
 void formationCarte()
 {
-    for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+    for(j = 0;j<NB_SPRITES_LARGEUR;j++)
     {
-        for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+        for(i=0;i<NB_SPRITES_HAUTEUR;i++)
         {
 
-            PosFinal.x = i*TAILLE_SPRITE;
-            PosFinal.y = j*TAILLE_SPRITE;
+            PosFinal.x = j*TAILLE_SPRITE;
+            PosFinal.y = i*TAILLE_SPRITE;
 
-            switch(carte[j][i])
+            switch(carte[i][j])
             {
                 case CHEMIN:
                     SDL_BlitSurface(sprites, &positionChemin, ecran, &PosFinal);
@@ -129,25 +130,43 @@ void formationCarte()
         }
     }
 }
+void rafraichissementPositionPerso()
+{
+            PosFinal.x = posPerso.x;
+            PosFinal.y = posPerso.y;
+
+            i=posPerso.y/TAILLE_SPRITE;
+            j=posPerso.x/TAILLE_SPRITE;
+
+            switch(carte[i][j])
+            {
+                case CHEMIN:
+                    SDL_BlitSurface(sprites, &positionChemin, ecran, &PosFinal);
+                    break;
+                case HERBE:
+                    SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
+                    break;
+            }
+}
 
 void placementObjets(int t)
 {
     if(t==1)
     {
-        for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+        for(j = 0;j<NB_SPRITES_LARGEUR;j++)
         {
-            for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+            for(i=0;i<NB_SPRITES_HAUTEUR;i++)
             {
 
-                PosFinal.x = i*TAILLE_SPRITE;
-                PosFinal.y = j*TAILLE_SPRITE;
+                PosFinal.x = j*TAILLE_SPRITE;
+                PosFinal.y = i*TAILLE_SPRITE;
 
                 positionObjet.x = 0;
                 positionObjet.y = 0;
                 positionObjet.w = TAILLE_SPRITE;
                 positionObjet.h = TAILLE_SPRITE;
 
-                if(objet[j][i]==1)
+                if(objet[i][j]==1)
                 {
                         SDL_BlitSurface(gland, &positionObjet, ecran, &PosFinal);
                         break;
@@ -158,9 +177,9 @@ void placementObjets(int t)
 }
 void gestionRamassage()
 {
-    for(i = 0;i<NB_SPRITES_LARGEUR;i++)
+    for(j = 0;j<NB_SPRITES_LARGEUR;j++)
     {
-        for(j=0;j<NB_SPRITES_HAUTEUR;j++)
+        for(i=0;i<NB_SPRITES_HAUTEUR;i++)
         {
             if(objet[i][j]==1)
             {
@@ -169,9 +188,9 @@ void gestionRamassage()
                     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
                     formationCarte();
                     objet[i][j]=0;
-                    placementObjets(0);
-                    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
-                    SDL_Flip(ecran);
+                    placementObjets(1);
+                    //SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+                    //SDL_Flip(ecran);
                 }
             }
         }
