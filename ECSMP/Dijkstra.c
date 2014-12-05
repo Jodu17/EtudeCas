@@ -71,8 +71,8 @@ void set_dist(node_t *nd, node_t *via, double d)
 	if (!i) i = ++heap_len;
 
 	/* upheap */
-	/*for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
-		(heap[i] = heap[j])->heap_idx = i;*/
+	for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
+		(heap[i] = heap[j])->heap_idx = i;
 
 	heap[i] = nd;
 	nd->heap_idx = i;
@@ -123,58 +123,167 @@ void show_path(node_t *nd)
 	;
 		//printf("%s(unreached)", nd->name);
 	else {
-		/*if(nd==nd->via+1)
+        show_path(nd->via);
+		if(nd==nd->via+1)
             versDroite();
-            SDL_Delay(90);
+            SDL_Delay(20);
         if(nd==nd->via-1)
             versGauche();
-            SDL_Delay(90);
+            SDL_Delay(20);
         if(nd==nd->via+10)
             versBas();
-            SDL_Delay(90);
+            SDL_Delay(20);
         if(nd==nd->via-10)
             versHaut();
-            SDL_Delay(90);*/
-        show_path(nd->via);
-		printf("-> %s(%g) ", nd->name, nd->dist);
+            SDL_Delay(20);
 	}
 }
 
-int dijkstra()
-{
-	int i;
+node_t* buildGraph(){
 
-#	define N_NODES 100
+    int i;
+
+    #	define N_NODES 100
 	node_t *nodes = calloc(sizeof(node_t), N_NODES);
 
 	for (i = 0; i < N_NODES; i++)
 		sprintf(nodes[i].name, "%d", i);
 
+
+    add_edge(nodes+3, nodes+4, 1000);
+    add_edge(nodes+14, nodes+4, 1000);
+    add_edge(nodes+5, nodes+4, 1000);
+
+    add_edge(nodes+23, nodes+24, 1000);
+    add_edge(nodes+14, nodes+24, 1000);
+    add_edge(nodes+34, nodes+24, 1000);
+
+    add_edge(nodes+33, nodes+34, 1000);
+    add_edge(nodes+35, nodes+34, 1000);
+
+    add_edge(nodes+45, nodes+44, 1000);
+    add_edge(nodes+54, nodes+44, 1000);
+
+    add_edge(nodes+33, nodes+43, 1000);
+    add_edge(nodes+53, nodes+43, 1000);
+
+    add_edge(nodes+32, nodes+42, 1000);
+    add_edge(nodes+52, nodes+42, 1000);
+
+    add_edge(nodes+31, nodes+41, 1000);
+    add_edge(nodes+51, nodes+41, 1000);
+
+    add_edge(nodes+30, nodes+40, 1000);
+    add_edge(nodes+50, nodes+40, 1000);
+
+    add_edge(nodes+54, nodes+64, 1000);
+    add_edge(nodes+63, nodes+64, 1000);
+    add_edge(nodes+65, nodes+64, 1000);
+
+    add_edge(nodes+73, nodes+74, 1000);
+    add_edge(nodes+84, nodes+74, 1000);
+
+    add_edge(nodes+65, nodes+75, 1000);
+    add_edge(nodes+85, nodes+75, 1000);
+
+    add_edge(nodes+66, nodes+76, 1000);
+    add_edge(nodes+86, nodes+76, 1000);
+
+    add_edge(nodes+67, nodes+77, 1000);
+    add_edge(nodes+87, nodes+77, 1000);
+
+    add_edge(nodes+68, nodes+78, 1000);
+    add_edge(nodes+88, nodes+78, 1000);
+
+    add_edge(nodes+69, nodes+79, 1000);
+    add_edge(nodes+89, nodes+79, 1000);
+
+    add_edge(nodes+84, nodes+94, 1000);
+    add_edge(nodes+93, nodes+94, 1000);
+    add_edge(nodes+95, nodes+94, 1000);
+
+
 	for (i = 0; i < N_NODES; i++) {
-            if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99)
+            if(i!=9 && i!=19 && i!=29 && i!=39 && i!=49 && i!=59 && i!=69 && i!=79 && i!=89 && i!=99
+                && i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
+                && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94)
             add_edge(nodes + i, nodes + i+1, 1);
-            if(i!=0 && i!=10 && i!=20 && i!=30 && i!=40 && i!=50 && i!=60 && i!=70 && i!=80 && i!=90)
+            if(i!=0 && i!=10 && i!=20 && i!=30 && i!=40 && i!=50 && i!=60 && i!=70 && i!=80 && i!=90
+                && i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
+                && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94)
 			add_edge(nodes + i, nodes + i-1, 1);
-            if(i>9)
+            if(i>9
+                && i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
+                && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94)
 			add_edge(nodes + i, nodes + i-10, 1);
-			if(i<90)
+			if(i<90
+                && i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
+                && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94)
 			add_edge(nodes + i, nodes + i+10, 1);
 	}
 
+    return nodes;
+}
 
+void dijkstra (int tabR[])
+{
 
+    //r1
+    node_t* nodes=buildGraph();
 
-	heap = calloc(sizeof(heap_t), N_NODES + 1);
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
 
 	calc_all(nodes);
-    show_path(nodes + 59);
+    show_path(nodes + tabR[0]);
 
-    //free(heap);
+    free(heap);
 
-    //show_path(nodes + 41);
+    //r2
+    nodes=buildGraph();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[0]);
+    show_path(nodes + tabR[1]);
+
+    free(heap);
+
+    //r3
+    nodes=buildGraph();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[1]);
+    show_path(nodes + tabR[2]);
+
+    free(heap);
+
+    //r4
+    nodes=buildGraph();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[2]);
+    show_path(nodes + tabR[3]);
+
+    free(heap);
+
+    //Arrivee
+    nodes=buildGraph();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+    calc_all(nodes + tabR[3]);
+    show_path(nodes + 99);
+
 
     free(heap);
     free(nodes);
 	free_edges();
+
 }
