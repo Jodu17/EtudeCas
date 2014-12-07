@@ -10,6 +10,7 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdbool.h>
 #include "carte.c"
 #include "personnage.c"
@@ -34,14 +35,14 @@ void rafraichissementPositionPerso();
 //                        {1,1,1,1,0,1,1,1,1,1}};
 
 int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
-    {{1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
+    {{0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1},
+    {0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0},
+    {1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
@@ -53,7 +54,8 @@ int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1}};
+    {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0}};
+
 
 //    int objet[10][10]= {{0,0,0,0,0,0,0,0,1,0},
 //                        {0,0,0,0,0,0,0,0,0,0},
@@ -90,6 +92,24 @@ int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
 
 int main(int argc, char *argv[])
 {
+    TTF_Font *police = NULL;
+    SDL_Color couleurBlanche = {255, 255, 255};
+    SDL_Surface *texteP1, *texteP2 = NULL;
+
+    TTF_Init();
+
+    if(TTF_Init() == -1)
+    {
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+    /* Chargement de la police */
+    police = TTF_OpenFont("ARCHRISTY.ttf", 65);
+    /* Écriture du texte dans la SDL_Surface texte en mode Blended (optimal) */
+    texteP1 = TTF_RenderText_Blended(police, "TAPEZ ENTREE POUR", couleurBlanche);
+    texteP2 = TTF_RenderText_Blended(police, "LANCER LE JEU !", couleurBlanche);
+
     initilisationPositions();
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -101,13 +121,23 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    SDL_WM_SetCaption("ECSMP - Etude de Cas", NULL);
+    SDL_WM_SetCaption("2D GAME | 4 ACORNS", NULL);
 
     //Seulement au début
-    formationCarte();
+//    formationCarte();
+//
+//    placementObjets(1);
+//    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
 
-    placementObjets(1);
-    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+    SDL_Rect positionT;
+    SDL_Rect positionT2;
+    positionT.x = 45;
+    positionT.y = 185;
+    positionT2.x = 90;
+    positionT2.y = 265;
+
+    SDL_BlitSurface(texteP1, NULL, ecran, &positionT); /* Blit du texte */
+    SDL_BlitSurface(texteP2, NULL, ecran, &positionT2); /* Blit du texte */
 
 
     int tabR[4];
@@ -115,7 +145,6 @@ int main(int argc, char *argv[])
     tabR[1]=70;
     tabR[2]=93;
     tabR[3]=89;
-    dijkstra(tabR);
 
     SDL_Flip(ecran);
 
@@ -143,7 +172,24 @@ int main(int argc, char *argv[])
                 case SDLK_LEFT:
                     versGauche();
                     break;
+                case SDLK_RETURN:
+                    formationCarte();
+                    placementObjets(1);
+                    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+                    SDL_Flip(ecran);
+                    SDL_Delay(2000);
+                    dijkstra(tabR);
+                    break;
+                case SDLK_KP_ENTER:
+                    formationCarte();
+                    placementObjets(1);
+                    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+                    SDL_Flip(ecran);
+                    SDL_Delay(2000);
+                    dijkstra(tabR);
+                    break;
             }
+
             //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
             //formationCarte();
             //placementObjets(1);
@@ -156,7 +202,11 @@ int main(int argc, char *argv[])
 
     SDL_FreeSurface(sprites); // On libère la surface
 
+    TTF_CloseFont(police);
+    TTF_Quit();
+
     SDL_Quit();
+
 
     return EXIT_SUCCESS; // Fermeture du programme
 }
@@ -179,6 +229,12 @@ void formationCarte()
                 case HERBE:
                     SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
                     break;
+                case EAU:
+                    SDL_BlitSurface(sprites, &positionEau, ecran, &PosFinal);
+                    break;
+                case MUR:
+                    SDL_BlitSurface(sprites, &positionMur, ecran, &PosFinal);
+                    break;
             }
         }
     }
@@ -198,6 +254,12 @@ void rafraichissementPositionPerso()
                     break;
                 case HERBE:
                     SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
+                    break;
+                case EAU:
+                    SDL_BlitSurface(sprites, &positionEau, ecran, &PosFinal);
+                    break;
+                case MUR:
+                    SDL_BlitSurface(sprites, &positionMur, ecran, &PosFinal);
                     break;
             }
 }

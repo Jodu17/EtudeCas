@@ -7,9 +7,9 @@
 #define LARGEUR_FENETRE TAILLE_SPRITE*NB_SPRITES_LARGEUR
 #define HAUTEUR_FENETRE TAILLE_SPRITE*NB_SPRITES_HAUTEUR
 
-enum {CHEMIN,HERBE};
+enum {CHEMIN,HERBE,EAU,MUR};
 SDL_Surface *ecran,*sprites,*perso,*gland;
-SDL_Rect positionChemin,positionHerbe,PosFinal,positionPerso,posPerso,positionObjet;
+SDL_Rect positionChemin,positionHerbe,positionEau,positionMur,PosFinal,positionPerso,posPerso,positionObjet;
 
 void formationCarte();
 void chargementCarte();

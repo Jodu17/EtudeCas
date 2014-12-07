@@ -26,6 +26,16 @@ void initilisationPositions()
     positionHerbe.w = TAILLE_SPRITE;
     positionHerbe.h = TAILLE_SPRITE;
 
+    positionEau.x = TAILLE_SPRITE*0;
+    positionEau.y = TAILLE_SPRITE*1;
+    positionEau.w = TAILLE_SPRITE;
+    positionEau.h = TAILLE_SPRITE;
+
+    positionMur.x = TAILLE_SPRITE*2;
+    positionMur.y = TAILLE_SPRITE*3;
+    positionMur.w = TAILLE_SPRITE;
+    positionMur.h = TAILLE_SPRITE;
+
 //    positionPerso.x = TAILLE_SPRITE*4;
 //    positionPerso.y = TAILLE_SPRITE*9;
 //    positionPerso.w = TAILLE_SPRITE;
