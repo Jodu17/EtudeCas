@@ -19,6 +19,7 @@ struct node_t {
 };
 
 
+
 /* --- edge management --- */
 #ifdef BIG_EXAMPLE
 #	define BLOCK_SIZE (1024 * 32 - 1)
@@ -115,7 +116,7 @@ void calc_all(node_t *start)
 			set_dist(e->nd, lead, lead->dist + e->len);
 }
 
-void show_path(node_t *nd)
+int show_path(node_t *nd, int score)
 {
 	if (nd->via == nd)
 		printf("%s", nd->name);
@@ -123,7 +124,7 @@ void show_path(node_t *nd)
 	;
 		//printf("%s(unreached)", nd->name);
 	else {
-        show_path(nd->via);
+        score=show_path(nd->via,score);
 		if(nd==nd->via+1)
             versDroite();
             SDL_Delay(20);
@@ -136,6 +137,8 @@ void show_path(node_t *nd)
         if(nd==nd->via-20)
             versHaut();
             SDL_Delay(20);
+        score=score+1;
+        return score;
 	}
 }
 
@@ -227,9 +230,9 @@ node_t* buildGraph(){
     return nodes;
 }
 
-void dijkstra (int tabR[])
+int dijkstra (int tabR[],int score)
 {
-
+    score=0;
     //r1
     node_t* nodes=buildGraph();
 /*
@@ -281,11 +284,13 @@ void dijkstra (int tabR[])
 	heap_len = 0;
 
     calc_all(nodes/* + tabR[3]*/);
-    show_path(nodes + 399);
+    score=show_path(nodes + 399,score);
 
 
     free(heap);
     free(nodes);
 	free_edges();
+
+	return score-1;
 
 }

@@ -16,10 +16,12 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 #include "personnage.c"
 
 
+
 //Prototype de fonction(s)
 void gestionRamassage();
 void rafraichissementPositionPerso();
 
+    int score;
     SDL_Event event;
     int i,j;
     bool exec = true;
@@ -92,9 +94,11 @@ int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
 
 int main(int argc, char *argv[])
 {
-    TTF_Font *police = NULL;
+    score=0;
+    TTF_Font *police, *police2 = NULL;
     SDL_Color couleurBlanche = {255, 255, 255};
-    SDL_Surface *texteP1, *texteP2 = NULL;
+    SDL_Color couleurScore = {0, 0, 0};
+    SDL_Surface *texteP1, *texteP2, *texteScore, *texteScore2 = NULL;
 
     TTF_Init();
 
@@ -106,9 +110,11 @@ int main(int argc, char *argv[])
 
     /* Chargement de la police */
     police = TTF_OpenFont("ARCHRISTY.ttf", 65);
+    police2 = TTF_OpenFont("ARCHRISTY.ttf", 35);
     /* Écriture du texte dans la SDL_Surface texte en mode Blended (optimal) */
-    texteP1 = TTF_RenderText_Blended(police, "TAPEZ ENTREE POUR", couleurBlanche);
-    texteP2 = TTF_RenderText_Blended(police, "LANCER LE JEU !", couleurBlanche);
+    texteP1 = TTF_RenderText_Blended(police, "PRESS ENTER TO", couleurBlanche);
+    texteP2 = TTF_RenderText_Blended(police, "LAUNCH THE GAME !", couleurBlanche);
+
 
     initilisationPositions();
 
@@ -131,10 +137,16 @@ int main(int argc, char *argv[])
 
     SDL_Rect positionT;
     SDL_Rect positionT2;
-    positionT.x = 45;
+    SDL_Rect positionScore;
+    SDL_Rect positionScore2;
+    positionT.x = 80;
     positionT.y = 185;
-    positionT2.x = 90;
+    positionT2.x = 45;
     positionT2.y = 265;
+    positionScore.x = 75;
+    positionScore.y = 265;
+    positionScore2.x = 150;
+    positionScore2.y = 345;
 
     SDL_BlitSurface(texteP1, NULL, ecran, &positionT); /* Blit du texte */
     SDL_BlitSurface(texteP2, NULL, ecran, &positionT2); /* Blit du texte */
@@ -178,7 +190,19 @@ int main(int argc, char *argv[])
                     SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
-                    dijkstra(tabR);
+                    score=dijkstra(tabR,score);
+                    if(score!=0){
+                        char sc[15];
+                        char sco[3];
+                        strcat(sc,"You win ! Score : ");
+                        sprintf(sco, "%d", score);
+                        strcat(sc,sco);
+                        /* Écriture du texte dans la SDL_Surface texte en mode Solid (rapide) */
+                        texteScore = TTF_RenderText_Solid(police, sc, couleurScore);
+                        SDL_BlitSurface(texteScore, NULL, ecran, &positionScore); /* Blit du texte */;
+                        texteScore2 = TTF_RenderText_Solid(police2, "(PRESS ESCAPE TO QUIT)", couleurScore);
+                        SDL_BlitSurface(texteScore2, NULL, ecran, &positionScore2); /* Blit du texte */;
+                        SDL_Flip(ecran);}
                     break;
                 case SDLK_KP_ENTER:
                     formationCarte();
@@ -186,7 +210,22 @@ int main(int argc, char *argv[])
                     SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
-                    dijkstra(tabR);
+                    score=dijkstra(tabR,score);
+                    if(score!=0){
+                        char sc[13];
+                        char sco[3];
+                        strcat(sc,"Victoire ! Score : ");
+                        sprintf(sco, "%d", score);
+                        strcat(sc,sco);
+                        /* Écriture du texte dans la SDL_Surface texte en mode Solid (rapide) */
+                        texteScore = TTF_RenderText_Solid(police, sc, couleurScore);
+                        SDL_BlitSurface(texteScore, NULL, ecran, &positionScore); /* Blit du texte */;
+                        texteScore2 = TTF_RenderText_Solid(police2, "(PRESS ESCAPE TO QUIT)", couleurScore);
+                        SDL_BlitSurface(texteScore2, NULL, ecran, &positionScore2); /* Blit du texte */;
+                        SDL_Flip(ecran);}
+                    break;
+                    case SDLK_ESCAPE:
+                        exit(0);
                     break;
             }
 
