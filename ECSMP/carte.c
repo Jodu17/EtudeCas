@@ -11,8 +11,8 @@ void initilisationPositions()
 //    positionChemin.h = TAILLE_SPRITE;
 //    positionChemin.w = TAILLE_SPRITE;
 
-    positionChemin.x = TAILLE_SPRITE*2;
-    positionChemin.y = 0;
+    positionChemin.x = TAILLE_SPRITE*3;
+    positionChemin.y = TAILLE_SPRITE*2;
     positionChemin.h = TAILLE_SPRITE;
     positionChemin.w = TAILLE_SPRITE;
 
@@ -26,8 +26,8 @@ void initilisationPositions()
     positionHerbe.w = TAILLE_SPRITE;
     positionHerbe.h = TAILLE_SPRITE;
 
-    positionEau.x = TAILLE_SPRITE*0;
-    positionEau.y = TAILLE_SPRITE*1;
+    positionEau.x = TAILLE_SPRITE*1;
+    positionEau.y = TAILLE_SPRITE*4;
     positionEau.w = TAILLE_SPRITE;
     positionEau.h = TAILLE_SPRITE;
 
@@ -35,6 +35,11 @@ void initilisationPositions()
     positionMur.y = TAILLE_SPRITE*3;
     positionMur.w = TAILLE_SPRITE;
     positionMur.h = TAILLE_SPRITE;
+
+    positionArbre.x = TAILLE_SPRITE*0;
+    positionArbre.y = TAILLE_SPRITE*1;
+    positionArbre.w = TAILLE_SPRITE;
+    positionArbre.h = TAILLE_SPRITE;
 
 //    positionPerso.x = TAILLE_SPRITE*4;
 //    positionPerso.y = TAILLE_SPRITE*9;

@@ -41,7 +41,6 @@
 		<Unit filename="carte.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="include/personnage.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -49,6 +48,7 @@
 			<Option compilerVar="CC" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="personnage.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
