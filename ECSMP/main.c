@@ -114,10 +114,10 @@ int main(int argc, char *argv[])
     score=0;
 
     // Variables pour ecriture avec TTF
-    TTF_Font *police, *police2 = NULL;
+    TTF_Font *police, *police2, *police3 = NULL;
     SDL_Color couleurBlanche = {255, 255, 255};
     SDL_Color couleurScore = {0, 0, 0};
-    SDL_Surface *texteP1, *texteP2, *texteScore, *texteScore2 = NULL;
+    SDL_Surface *texteP1, *texteP2, *texteP3, *texteScore, *texteScore2 = NULL;
 
     TTF_Init();
 
@@ -130,10 +130,11 @@ int main(int argc, char *argv[])
     /* Chargement des polices */
     police = TTF_OpenFont("ARCHRISTY.ttf", 65);
     police2 = TTF_OpenFont("ARCHRISTY.ttf", 35);
+    police3 = TTF_OpenFont("ARCHRISTY.ttf", 26);
     /* Écriture du texte dans la SDL_Surface texte en mode Blended (optimal) */
-    texteP1 = TTF_RenderText_Blended(police, "PRESS ENTER TO", couleurBlanche);
-    texteP2 = TTF_RenderText_Blended(police, "LAUNCH THE GAME !", couleurBlanche);
-
+    texteP1 = TTF_RenderText_Blended(police2, "HOW PLAY TO SQUIRREL ACORN : ", couleurBlanche);
+    texteP2 = TTF_RenderText_Blended(police3, "PRESS 1 : NORMAL MODE", couleurBlanche);
+    texteP3 = TTF_RenderText_Blended(police3, "PRESS 2 : NO CONSTRAINTS MODE (without obstacles)", couleurBlanche);
     // Init des positions des cases et du personnage
     initilisationPositions();
 
@@ -151,20 +152,33 @@ int main(int argc, char *argv[])
     // Autres variables pour les positions des ecritures
     SDL_Rect positionT;
     SDL_Rect positionT2;
+    SDL_Rect positionT3;
+    SDL_Rect positionT4;
+    SDL_Rect positionT5;
+    SDL_Rect positionT6;
     SDL_Rect positionScore;
     SDL_Rect positionScore2;
-    positionT.x = 80;
+    positionT.x = 70;
     positionT.y = 185;
     positionT2.x = 45;
     positionT2.y = 265;
+    positionT3.x = 27;
+    positionT3.y = 365;
+    positionT4.x = 70;
+    positionT4.y = 215;
+    positionT5.x = 170;
+    positionT5.y = 275;
+    positionT6.x = 20;
+    positionT6.y = 330;
     positionScore.x = 75;
     positionScore.y = 265;
     positionScore2.x = 150;
     positionScore2.y = 345;
 
     // Affichage du texte
-    SDL_BlitSurface(texteP1, NULL, ecran, &positionT); /* Blit du texte */
-    SDL_BlitSurface(texteP2, NULL, ecran, &positionT2); /* Blit du texte */
+    SDL_BlitSurface(texteP1, NULL, ecran, &positionT4); /* Blit du texte */
+    SDL_BlitSurface(texteP2, NULL, ecran, &positionT5); /* Blit du texte */
+    SDL_BlitSurface(texteP3, NULL, ecran, &positionT6); /* Blit du texte */
 
     // Initialisation du tableau avec la position des ressources
     int tabR[4];
@@ -199,7 +213,7 @@ int main(int argc, char *argv[])
                 case SDLK_LEFT:
                     versGauche();
                     break;
-                case SDLK_RETURN:
+                case SDLK_1:
                     // Affichage de la carte ...
                     formationCarte();
                     // ... et des objets.
@@ -208,10 +222,10 @@ int main(int argc, char *argv[])
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
                     // Lancement de l'algo
-                    score=dijkstra(tabR,score);
+                    score=dijkstra1(tabR,score);
                     if(score!=0){
                         // Affichage du score
-                        char sc[15];
+                        char sc[13];
                         char sco[3];
                         strcat(sc,"You win ! Score : ");
                         sprintf(sco, "%d", score);
@@ -223,7 +237,7 @@ int main(int argc, char *argv[])
                         SDL_BlitSurface(texteScore2, NULL, ecran, &positionScore2); /* Blit du texte */;
                         SDL_Flip(ecran);}
                     break;
-                case SDLK_KP_ENTER:
+                case SDLK_KP1:
                     // Affichage de la carte ...
                     formationCarte();
                     // ... et des objets.
@@ -232,12 +246,60 @@ int main(int argc, char *argv[])
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
                     // Lancement de l'algo
-                    score=dijkstra(tabR,score);
+                    score=dijkstra1(tabR,score);
                     if(score!=0){
                         // Affichage du score
                         char sc[13];
                         char sco[3];
-                        strcat(sc,"Victoire ! Score : ");
+                        strcat(sc,"You win ! Score : ");
+                        sprintf(sco, "%d", score);
+                        strcat(sc,sco);
+                        /* Écriture du texte dans la SDL_Surface texte en mode Solid (rapide) */
+                        texteScore = TTF_RenderText_Solid(police, sc, couleurScore);
+                        SDL_BlitSurface(texteScore, NULL, ecran, &positionScore); /* Blit du texte */;
+                        texteScore2 = TTF_RenderText_Solid(police2, "(PRESS ESCAPE TO QUIT)", couleurScore);
+                        SDL_BlitSurface(texteScore2, NULL, ecran, &positionScore2); /* Blit du texte */;
+                        SDL_Flip(ecran);}
+                    break;
+                case SDLK_2:
+                    // Affichage de la carte ...
+                    formationCarte();
+                    // ... et des objets.
+                    placementObjets(1);
+                    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+                    SDL_Flip(ecran);
+                    SDL_Delay(2000);
+                    // Lancement de l'algo
+                    score=dijkstra2(tabR,score);
+                    if(score!=0){
+                        // Affichage du score
+                        char sc[13];
+                        char sco[3];
+                        strcat(sc,"You win ! Score : ");
+                        sprintf(sco, "%d", score);
+                        strcat(sc,sco);
+                        /* Écriture du texte dans la SDL_Surface texte en mode Solid (rapide) */
+                        texteScore = TTF_RenderText_Solid(police, sc, couleurScore);
+                        SDL_BlitSurface(texteScore, NULL, ecran, &positionScore); /* Blit du texte */;
+                        texteScore2 = TTF_RenderText_Solid(police2, "(PRESS ESCAPE TO QUIT)", couleurScore);
+                        SDL_BlitSurface(texteScore2, NULL, ecran, &positionScore2); /* Blit du texte */;
+                        SDL_Flip(ecran);}
+                    break;
+                case SDLK_KP2:
+                    // Affichage de la carte ...
+                    formationCarte();
+                    // ... et des objets.
+                    placementObjets(1);
+                    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
+                    SDL_Flip(ecran);
+                    SDL_Delay(2000);
+                    // Lancement de l'algo
+                    score=dijkstra2(tabR,score);
+                    if(score!=0){
+                        // Affichage du score
+                        char sc[13];
+                        char sco[3];
+                        strcat(sc,"You win ! Score : ");
                         sprintf(sco, "%d", score);
                         strcat(sc,sco);
                         /* Écriture du texte dans la SDL_Surface texte en mode Solid (rapide) */

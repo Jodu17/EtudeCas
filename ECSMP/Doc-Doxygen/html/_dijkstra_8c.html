@@ -26,7 +26,7 @@
    <div id="projectname">SQUIRREL ACORN
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Jeu de collecte rapide d&#39;items en 2D</div>
+   <div id="projectbrief">Jeu de collecte d&#39;items en 2D</div>
   </td>
  </tr>
  </tbody>
@@ -118,6 +118,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a16c19de9b8eca127fb6d5dad6b43aa49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16c19de9b8eca127fb6d5dad6b43aa49"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>N_NODES</b>&#160;&#160;&#160;400</td></tr>
 <tr class="separator:a16c19de9b8eca127fb6d5dad6b43aa49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16c19de9b8eca127fb6d5dad6b43aa49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16c19de9b8eca127fb6d5dad6b43aa49"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>N_NODES</b>&#160;&#160;&#160;400</td></tr>
+<tr class="separator:a16c19de9b8eca127fb6d5dad6b43aa49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -153,12 +156,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dij
 <tr class="memitem:a5d8cd9adb5df3fb2e6fd58cb771d396c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#a5d8cd9adb5df3fb2e6fd58cb771d396c">show_path</a> (<a class="el" href="structnode__t.html">node_t</a> *nd, int score)</td></tr>
 <tr class="memdesc:a5d8cd9adb5df3fb2e6fd58cb771d396c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode pour trouver le plus court chemin et deplacer le personnage selon ce dernier.  <a href="#a5d8cd9adb5df3fb2e6fd58cb771d396c">More...</a><br /></td></tr>
 <tr class="separator:a5d8cd9adb5df3fb2e6fd58cb771d396c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8d24b0093b407d449f0f513dc257f41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnode__t.html">node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#ad8d24b0093b407d449f0f513dc257f41">buildGraph</a> ()</td></tr>
-<tr class="memdesc:ad8d24b0093b407d449f0f513dc257f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de construction du graphe.  <a href="#ad8d24b0093b407d449f0f513dc257f41">More...</a><br /></td></tr>
-<tr class="separator:ad8d24b0093b407d449f0f513dc257f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9780796c7baea35ec7976eafd7c73e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#ab9780796c7baea35ec7976eafd7c73e1">dijkstra</a> (int tabR[], int score)</td></tr>
-<tr class="memdesc:ab9780796c7baea35ec7976eafd7c73e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lancement de l'agorithme de dijkstra et obtention du score.  <a href="#ab9780796c7baea35ec7976eafd7c73e1">More...</a><br /></td></tr>
-<tr class="separator:ab9780796c7baea35ec7976eafd7c73e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9379d249a55d64ae6b74a26eb36df38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnode__t.html">node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#af9379d249a55d64ae6b74a26eb36df38">buildGraph1</a> ()</td></tr>
+<tr class="memdesc:af9379d249a55d64ae6b74a26eb36df38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de construction du graphe avec contraintes d'environnement.  <a href="#af9379d249a55d64ae6b74a26eb36df38">More...</a><br /></td></tr>
+<tr class="separator:af9379d249a55d64ae6b74a26eb36df38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc27012d0206c2898495e48616ccd3ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structnode__t.html">node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#afc27012d0206c2898495e48616ccd3ff">buildGraph2</a> ()</td></tr>
+<tr class="memdesc:afc27012d0206c2898495e48616ccd3ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de construction du graphe sans constraintes d'environnement.  <a href="#afc27012d0206c2898495e48616ccd3ff">More...</a><br /></td></tr>
+<tr class="separator:afc27012d0206c2898495e48616ccd3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bbfbf3c02e0a7e7f65286b87cb37de8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#a0bbfbf3c02e0a7e7f65286b87cb37de8">dijkstra1</a> (int tabR[], int score)</td></tr>
+<tr class="memdesc:a0bbfbf3c02e0a7e7f65286b87cb37de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lancement de l'agorithme de dijkstra et obtention du score avec constraintes d'environnement.  <a href="#a0bbfbf3c02e0a7e7f65286b87cb37de8">More...</a><br /></td></tr>
+<tr class="separator:a0bbfbf3c02e0a7e7f65286b87cb37de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78e499d01ce225a9748ee836f726caaa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dijkstra_8c.html#a78e499d01ce225a9748ee836f726caaa">dijkstra2</a> (int tabR[], int score)</td></tr>
+<tr class="memdesc:a78e499d01ce225a9748ee836f726caaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lancement de l'agorithme de dijkstra et obtention du score sans constraintes d'environnement.  <a href="#a78e499d01ce225a9748ee836f726caaa">More...</a><br /></td></tr>
+<tr class="separator:a78e499d01ce225a9748ee836f726caaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -224,12 +233,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>heap_len</b></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad8d24b0093b407d449f0f513dc257f41"></a>
+<a class="anchor" id="af9379d249a55d64ae6b74a26eb36df38"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structnode__t.html">node_t</a>* buildGraph </td>
+          <td class="memname"><a class="el" href="structnode__t.html">node_t</a>* buildGraph1 </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -237,7 +246,25 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>heap_len</b></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction de construction du graphe. </p>
+<p>Fonction de construction du graphe avec contraintes d'environnement. </p>
+<dl class="section return"><dt>Returns</dt><dd>*nodes Liste de tous les noeuds après construction du graphe. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afc27012d0206c2898495e48616ccd3ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structnode__t.html">node_t</a>* buildGraph2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de construction du graphe sans constraintes d'environnement. </p>
 <dl class="section return"><dt>Returns</dt><dd>*nodes Liste de tous les noeuds après construction du graphe. </dd></dl>
 
 </div>
@@ -266,12 +293,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>heap_len</b></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab9780796c7baea35ec7976eafd7c73e1"></a>
+<a class="anchor" id="a0bbfbf3c02e0a7e7f65286b87cb37de8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dijkstra </td>
+          <td class="memname">int dijkstra1 </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>tabR</em>[], </td>
@@ -290,7 +317,43 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>heap_len</b></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction de lancement de l'agorithme de dijkstra et obtention du score. </p>
+<p>Fonction de lancement de l'agorithme de dijkstra et obtention du score avec constraintes d'environnement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tabR</td><td>Tableau contenant l'emplacement des ressources. </td></tr>
+    <tr><td class="paramname">score</td><td>Le score(int) du joueur. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>score Le score(int) du joueur. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a78e499d01ce225a9748ee836f726caaa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dijkstra2 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabR</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>score</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de lancement de l'agorithme de dijkstra et obtention du score sans constraintes d'environnement. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tabR</td><td>Tableau contenant l'emplacement des ressources. </td></tr>
@@ -382,7 +445,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>heap_len</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 10 2014 03:48:18 for SQUIRREL ACORN by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 10 2014 05:41:02 for SQUIRREL ACORN by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

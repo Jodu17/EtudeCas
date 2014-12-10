@@ -173,12 +173,12 @@ int show_path(node_t *nd, int score)
 	}
 }
 
-/* Construction du graphe en fonction de la carte */
+/* Construction du graphe en fonction de la carte (avec constraintes) */
 /**
- * \brief    Fonction de construction du graphe
+ * \brief    Fonction de construction du graphe avec contraintes d'environnement
  * \return   *nodes     Liste de tous les noeuds après construction du graphe.
  */
-node_t* buildGraph(){
+node_t* buildGraph1(){
 
     int i;
 
@@ -436,22 +436,14 @@ node_t* buildGraph(){
             ){
 
                     if(i!=19 && i!=39 && i!=59 && i!=79 && i!=99 && i!=119 && i!=139 && i!=159 && i!=179 && i!=199
-                        && i!=219 && i!=239 && i!=259 && i!=279 && i!=299 && i!=319 && i!=339 && i!=359 && i!=379 && i!=399
-                        /*&& i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
-                        && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94*/){
+                        && i!=219 && i!=239 && i!=259 && i!=279 && i!=299 && i!=319 && i!=339 && i!=359 && i!=379 && i!=399){
                     add_edge(nodes + i, nodes + i+1, 1);}
                     if(i!=0 && i!=20 && i!=40 && i!=60 && i!=80 && i!=100 && i!=120 && i!=140 && i!=160 && i!=180
-                        && i!=200 && i!=220 && i!=240 && i!=260 && i!=280 && i!=300 && i!=320 && i!=340 && i!=360 && i!=380
-                        /*&& i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
-                        && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94*/){
+                        && i!=200 && i!=220 && i!=240 && i!=260 && i!=280 && i!=300 && i!=320 && i!=340 && i!=360 && i!=380){
                     add_edge(nodes + i, nodes + i-1, 1);}
-                    if(i>19
-                        /*&& i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
-                        && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94*/){
+                    if(i>19){
                     add_edge(nodes + i, nodes + i-20, 1);}
-                    if(i<380
-                        /*&& i!=34 && i!=4 && i!=24 && i!=34 && i!=44 && i!=43 && i!=42 && i!=41 && i!=40
-                        && i!=64 && i!=74 && i!=75 && i!=76 && i!=77 && i!=78 && i!=79 && i!=94*/){
+                    if(i<380){
                     add_edge(nodes + i, nodes + i+20, 1);}
             }
 	}
@@ -459,19 +451,52 @@ node_t* buildGraph(){
     return nodes;
 }
 
-// Fonction qui lance le "jeu"
+/* Construction du graphe en fonction de la carte sans contraintes */
 /**
- * \brief    Fonction de lancement de l'agorithme de dijkstra et obtention du score.
+ * \brief    Fonction de construction du graphe sans constraintes d'environnement
+ * \return   *nodes     Liste de tous les noeuds après construction du graphe.
+ */
+node_t* buildGraph2(){
+
+    int i;
+
+    #	define N_NODES 400
+	node_t *nodes = calloc(sizeof(node_t), N_NODES);
+
+    // Definition de tous les noeuds
+	for (i = 0; i < N_NODES; i++)
+		sprintf(nodes[i].name, "%d", i);
+
+    // Definition de toutes les arrêtes
+	for (i = 0; i < N_NODES; i++) {
+                    if(i!=19 && i!=39 && i!=59 && i!=79 && i!=99 && i!=119 && i!=139 && i!=159 && i!=179 && i!=199
+                        && i!=219 && i!=239 && i!=259 && i!=279 && i!=299 && i!=319 && i!=339 && i!=359 && i!=379 && i!=399){
+                    add_edge(nodes + i, nodes + i+1, 1);}
+                    if(i!=0 && i!=20 && i!=40 && i!=60 && i!=80 && i!=100 && i!=120 && i!=140 && i!=160 && i!=180
+                        && i!=200 && i!=220 && i!=240 && i!=260 && i!=280 && i!=300 && i!=320 && i!=340 && i!=360 && i!=380){
+                    add_edge(nodes + i, nodes + i-1, 1);}
+                    if(i>19){
+                    add_edge(nodes + i, nodes + i-20, 1);}
+                    if(i<380){
+                    add_edge(nodes + i, nodes + i+20, 1);}
+	}
+
+	return nodes;
+}
+
+// Fonction qui lance le "jeu" avec constraintes d'environnements
+/**
+ * \brief    Fonction de lancement de l'agorithme de dijkstra et obtention du score avec constraintes d'environnement.
  * \param    tabR     Tableau contenant l'emplacement des ressources.
  * \param    score    Le score(int) du joueur.
  * \return   score    Le score(int) du joueur.
  */
-int dijkstra (int tabR[],int score)
+int dijkstra1 (int tabR[],int score)
 {
     score=0;
 
     // Ressource 1
-    node_t* nodes=buildGraph();
+    node_t* nodes=buildGraph1();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
@@ -482,7 +507,7 @@ int dijkstra (int tabR[],int score)
     free(heap);
 
     // Ressource 2
-    nodes=buildGraph();
+    nodes=buildGraph1();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
@@ -493,7 +518,7 @@ int dijkstra (int tabR[],int score)
     free(heap);
 
     // Ressource 3
-    nodes=buildGraph();
+    nodes=buildGraph1();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
@@ -504,7 +529,7 @@ int dijkstra (int tabR[],int score)
     free(heap);
 
     // Ressource 4
-    nodes=buildGraph();
+    nodes=buildGraph1();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
@@ -515,7 +540,79 @@ int dijkstra (int tabR[],int score)
     free(heap);
 
     // Arrivee
-    nodes=buildGraph();
+    nodes=buildGraph1();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+    calc_all(nodes+ tabR[3]);
+    score=score+show_path(nodes + 399,score);
+
+    // Liberation pour la memoire
+    free(heap);
+    free(nodes);
+	free_edges();
+
+	return score;
+}
+
+// Fonction qui lance le "jeu" en mode sans contraintes d'environnement
+/**
+ * \brief    Fonction de lancement de l'agorithme de dijkstra et obtention du score sans constraintes d'environnement.
+ * \param    tabR     Tableau contenant l'emplacement des ressources.
+ * \param    score    Le score(int) du joueur.
+ * \return   score    Le score(int) du joueur.
+ */
+int dijkstra2 (int tabR[],int score)
+{
+    score=0;
+
+    // Ressource 1
+    node_t* nodes=buildGraph2();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes);
+    score=show_path(nodes + tabR[0],score);
+
+    free(heap);
+
+    // Ressource 2
+    nodes=buildGraph2();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[0]);
+    score=score+show_path(nodes + tabR[1],score);
+
+    free(heap);
+
+    // Ressource 3
+    nodes=buildGraph2();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[1]);
+    score=score+show_path(nodes + tabR[2],score);
+
+    free(heap);
+
+    // Ressource 4
+    nodes=buildGraph2();
+
+    heap = calloc(sizeof(heap_t), N_NODES + 1);
+	heap_len = 0;
+
+	calc_all(nodes + tabR[2]);
+    score=score+show_path(nodes + tabR[3],score);
+
+    free(heap);
+
+    // Arrivee
+    nodes=buildGraph2();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
 	heap_len = 0;
