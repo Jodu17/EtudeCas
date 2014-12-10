@@ -15,7 +15,7 @@
 
 /**
  * \brief      Chargement des images + initialisation des sprites pour les cases de la carte + position du personnage
- * \details    Choix des positions grâce à la taille d'un sprite et chargement des images + gestion de la transparence
+ * \details    Choix des positions grâce a la taille d'un sprite et chargement des images + gestion de la transparence
  */
 void initilisationPositions()
 {

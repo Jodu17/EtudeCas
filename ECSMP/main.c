@@ -1,19 +1,19 @@
 /*
 Nom du Projet : ECSMP
-Objectif : Réaliser un "jeu" qui permet à un personnage de trouver le plus court chemin dans un environnement définie
-Développeur(se): Sarta Seydi, Loic & Phan Joseph
+Objectif : Realiser un "jeu" qui permet a un personnage de trouver le plus court chemin dans un environnement definie
+Developpeur(se): Sarta Seydi, Loic & Phan Joseph
 Date : Octobre/Novembre 2014
-Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
+Annee Universitaire : 3ème Annee - Licence Informatique a La Rochelle
 */
 
 /**
  * \file      main.c
  * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
  * \version   1.1
- * \date      10 Décembre 2014
- * \brief     Crée et lance un jeu de collecte de ressources sur une carte 2D grâce à un algorithem de plus court chemin.
+ * \date      10 Decembre 2014
+ * \brief     Cree et lance un jeu de collecte de ressources sur une carte 2D grâce a un algorithem de plus court chemin.
  *
- * \details   Fichier main du projet (définition de la carte, de l'emplacement des ressources)
+ * \details   Fichier main du projet (definition de la carte, de l'emplacement des ressources)
  */
 
 #include <stdlib.h>
@@ -31,7 +31,7 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 void gestionRamassage();
 void rafraichissementPositionPerso();
 
-    int score; // Variable pour le nombre de déplacements
+    int score; // Variable pour le nombre de deplacements
     SDL_Event event;
     int i,j;
     bool exec = true;
@@ -107,13 +107,13 @@ int objet[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
 
 /**
  * \brief      Main pour lancer le jeu
- * \details    Gestion des événements (clavier) de l'utilisateur pour lancer le jeu
+ * \details    Gestion des evenements (clavier) de l'utilisateur pour lancer le jeu
  */
 int main(int argc, char *argv[])
 {
     score=0;
 
-    // Variables pour écriture avec TTF
+    // Variables pour ecriture avec TTF
     TTF_Font *police, *police2 = NULL;
     SDL_Color couleurBlanche = {255, 255, 255};
     SDL_Color couleurScore = {0, 0, 0};
@@ -142,13 +142,13 @@ int main(int argc, char *argv[])
     ecran = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, TAILLE_SPRITE, SDL_HWSURFACE); // Ouverture de la fenêtre
     if (ecran == NULL)
     {
-        fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
+        fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
     SDL_WM_SetCaption("2D GAME | 4 ACORNS", NULL);
 
-    // Autres variables pour les positions des écritures
+    // Autres variables pour les positions des ecritures
     SDL_Rect positionT;
     SDL_Rect positionT2;
     SDL_Rect positionScore;
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 
     SDL_Flip(ecran);
 
-    //Gestion des évèvements ( inputs )
+    //Gestion des evèvements ( inputs )
     while (exec)
     {
         SDL_WaitEvent(&event);
@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    // Libération de la surface
+    // Liberation de la surface
     SDL_FreeSurface(sprites);
 
     TTF_CloseFont(police);
@@ -270,7 +270,7 @@ int main(int argc, char *argv[])
 
 /**
  * \brief      Fonction d'affichage de la carte
- * \details    Affichage de la carte selon l'enum des cases (chemin, herbe...) et de la carte (tableau à 2 dimensions)
+ * \details    Affichage de la carte selon l'enum des cases (chemin, herbe...) et de la carte (tableau a 2 dimensions)
  */
 void formationCarte()
 {
@@ -321,7 +321,7 @@ void formationCarte()
 }
 
 /**
- * \brief      Méthode pour rafraichir l'écran selon la position du personnage
+ * \brief      Methode pour rafraichir l'ecran selon la position du personnage
  */
 void rafraichissementPositionPerso()
 {
@@ -397,7 +397,7 @@ void placementObjets(int t)
 }
 
 /**
- * \brief      Méthode de gestion du ramassage des ressources
+ * \brief      Methode de gestion du ramassage des ressources
  * \details    Gestion selon la position des ressources et du personnage
  */
 void gestionRamassage()

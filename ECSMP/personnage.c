@@ -2,8 +2,8 @@
  * \file      personnage.c
  * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
  * \version   1.1
- * \date      10 Décembre 2014
- * \brief     Contient le fonctions permettant le déplacement du personnage à l'écran, sur la carte.
+ * \date      10 Decembre 2014
+ * \brief     Contient les fonctions permettant le deplacement du personnage a l'ecran, sur la carte.
  *
  */
 
@@ -14,8 +14,8 @@
 #include "personnage.h"
 
 /**
- * \brief      Déplacement du personnage vers le haut
- * \details    Rafraichissement de la position et choix du sprite personnage tourné vers le haut
+ * \brief      Deplacement du personnage vers le haut
+ * \details    Rafraichissement de la position et choix du sprite personnage tourne vers le haut
  */
 void versHaut()
 {
@@ -35,8 +35,8 @@ void versHaut()
 }
 
 /**
- * \brief      Déplacement du personnage vers le bas
- * \details    Rafraichissement de la position et choix du sprite personnage tourné vers le bas
+ * \brief      Deplacement du personnage vers le bas
+ * \details    Rafraichissement de la position et choix du sprite personnage tourne vers le bas
  */
 void versBas()
 {
@@ -56,8 +56,8 @@ void versBas()
 }
 
 /**
- * \brief      Déplacement du personnage vers la gauche
- * \details    Rafraichissement de la position et choix du sprite personnage tourné vers la gauche
+ * \brief      Deplacement du personnage vers la gauche
+ * \details    Rafraichissement de la position et choix du sprite personnage tourne vers la gauche
  */
 void versGauche()
 {
@@ -78,8 +78,8 @@ void versGauche()
 
 
 /**
- * \brief      Déplacement du personnage vers la droite
- * \details    Rafraichissement de la position et choix du sprite personnage tourné vers la droite
+ * \brief      Deplacement du personnage vers la droite
+ * \details    Rafraichissement de la position et choix du sprite personnage tourne vers la droite
  */
 void versDroite()
 {

@@ -2,10 +2,10 @@
  * \file      Dijkstra.c
  * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
  * \version   1.1
- * \date      10 Décembre 2014
- * \brief     Contient la fonction "dijkstra" pour lancer le plus court chemin et en récupérer le score ainsi que les méthodes utiles à cette fonction.
+ * \date      10 Decembre 2014
+ * \brief     Contient la fonction "dijkstra" pour lancer le plus court chemin et en recuperer le score ainsi que les methodes utiles a cette fonction.
  *
- * \details   Fichier nécessaire à l'utilisation de l'algo du plus court chemin.
+ * \details   Fichier necessaire a l'utilisation de l'algo du plus court chemin.
  */
 
 #include <stdio.h>
@@ -22,7 +22,7 @@ struct edge_t {
 };
 struct node_t {
 	edge_t *edge;	/* singly linked list of edges */
-	node_t *via;	/* Noeud précédent selon le plus court chemin */
+	node_t *via;	/* Noeud precedent selon le plus court chemin */
 	double dist;	/* Distance depuis le noeud d'origine */
 	char name[8];	/* Nom du noeud */
 	int heap_idx;	/* link to heap position for updating distance */
@@ -35,9 +35,9 @@ struct node_t {
 edge_t *edge_root = 0, *e_next = 0;
 
 /**
- * \brief    Méthode d'ajout d'une arrête
- * \param    *a       Pointeur sur le noeud de départ.
- * \param    *b       Pointeur sur le noeaud d'arrivée.
+ * \brief    Methode d'ajout d'une arrête
+ * \param    *a       Pointeur sur le noeud de depart.
+ * \param    *b       Pointeur sur le noeaud d'arrivee.
  * \param    d        Distance(double) entre les deux noeuds.
  */
 void add_edge(node_t *a, node_t *b, double d)
@@ -56,7 +56,7 @@ void add_edge(node_t *a, node_t *b, double d)
 }
 
 /**
- * \brief   Méthode pour libérer la mémoire des arrêtes
+ * \brief   Methode pour liberer la memoire des arrêtes
  */
 void free_edges()
 {
@@ -66,12 +66,12 @@ void free_edges()
 	}
 }
 
-/* --- Queue de priorité --- */
+/* --- Queue de priorite --- */
 heap_t *heap;
 int heap_len;
 
 /**
- * \brief    Méthode d'ajout d'une arrête
+ * \brief    Methode d'ajout d'une arrête
  * \param    *a       Pointeur sur le noeud de base.
  * \param    *b       Pointeur sur le noeaud via lequel on arrive sur le noeud de base.
  * \param    d        Distance(double) entre les deux noeuds.
@@ -80,17 +80,17 @@ void set_dist(node_t *nd, node_t *via, double d)
 {
 	int i, j;
 
-	/* Déjà un plus court chemin */
+	/* Deja un plus court chemin */
 	if (nd->via && d >= nd->dist) return;
 
-	/* Trouve une entrée heap existante ou en crée une */
+	/* Trouve une entree heap existante ou en cree une */
 	nd->dist = d;
 	nd->via = via;
 
 	i = nd->heap_idx;
 	if (!i) i = ++heap_len;
 
-	/* On dépile */
+	/* On depile */
 	for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
 		(heap[i] = heap[j])->heap_idx = i;
 
@@ -99,7 +99,7 @@ void set_dist(node_t *nd, node_t *via, double d)
 }
 
 /**
- * \brief    Méthode pour étudier la queue.
+ * \brief    Methode pour etudier la queue.
  */
 node_t * pop_queue()
 {
@@ -129,7 +129,7 @@ node_t * pop_queue()
 
 /**
  * \brief    Fonction de calcul des distances sur tout le graphe
- * \param    *start  Pointeur sur le noeud de départ du graphe.
+ * \param    *start  Pointeur sur le noeud de depart du graphe.
  */
 void calc_all(node_t *start)
 {
@@ -144,9 +144,9 @@ void calc_all(node_t *start)
 }
 
 /**
- * \brief    Méthode pour trouver le plus court chemin et déplacer le personnage selon ce dernier.
- * \param    *nd       Pointeur sur le noeud à atteindre.
- * \return   score    Le score (int,nombre de déplacements) du joueur.
+ * \brief    Methode pour trouver le plus court chemin et deplacer le personnage selon ce dernier.
+ * \param    *nd       Pointeur sur le noeud a atteindre.
+ * \return   score    Le score (int,nombre de deplacements) du joueur.
  */
 int show_path(node_t *nd, int score)
 {
@@ -185,11 +185,11 @@ node_t* buildGraph(){
     #	define N_NODES 400
 	node_t *nodes = calloc(sizeof(node_t), N_NODES);
 
-    // Définition de tous les noeuds
+    // Definition de tous les noeuds
 	for (i = 0; i < N_NODES; i++)
 		sprintf(nodes[i].name, "%d", i);
 
-    // Défintion des obstacles (poids=1000 et non 1, donc jamais utilisés comme chemin
+    // Defintion des obstacles (poids=1000 et non 1, donc jamais utilises comme chemin
     for (i=8;i<12;i=i+1){
     add_edge(nodes+i+1, nodes+i, 1000);
     add_edge(nodes+i-1, nodes+i, 1000);
@@ -414,7 +414,7 @@ node_t* buildGraph(){
     add_edge(nodes+390, nodes+370, 1);
     add_edge(nodes+369, nodes+370, 1);
 
-    // Définition de toutes les arrêtes
+    // Definition de toutes les arrêtes
 	for (i = 0; i < N_NODES; i++) {
             if(i!=80 && i!=100 && i!=120 && i!=140 && i!=99 && i!=119 && i!=139 && i!=159 &&
                 i!=299 && i!=319 && i!=339 && i!=359 && i!=83 && i!=84 &&
@@ -514,7 +514,7 @@ int dijkstra (int tabR[],int score)
 
     free(heap);
 
-    // Arrivée
+    // Arrivee
     nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -523,7 +523,7 @@ int dijkstra (int tabR[],int score)
     calc_all(nodes+ tabR[3]);
     score=score+show_path(nodes + 399,score);
 
-    // Libération pour la mémoire
+    // Liberation pour la memoire
     free(heap);
     free(nodes);
 	free_edges();
