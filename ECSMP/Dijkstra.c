@@ -1,3 +1,13 @@
+/**
+ * \file      Dijkstra.c
+ * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
+ * \version   1.1
+ * \date      10 Décembre 2014
+ * \brief     Contient la fonction "dijkstra" pour lancer le plus court chemin et en récupérer le score ainsi que les méthodes utiles à cette fonction.
+ *
+ * \details   Fichier nécessaire à l'utilisation de l'algo du plus court chemin.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,13 +29,17 @@ struct node_t {
 };
 
 
-
 /* --- Manipulation des arrêtes --- */
 #	define BLOCK_SIZE 32
 
 edge_t *edge_root = 0, *e_next = 0;
 
-
+/**
+ * \brief    Méthode d'ajout d'une arrête
+ * \param    *a       Pointeur sur le noeud de départ.
+ * \param    *b       Pointeur sur le noeaud d'arrivée.
+ * \param    d        Distance(double) entre les deux noeuds.
+ */
 void add_edge(node_t *a, node_t *b, double d)
 {
 	if (e_next == edge_root) {
@@ -41,6 +55,9 @@ void add_edge(node_t *a, node_t *b, double d)
 	a->edge = e_next;
 }
 
+/**
+ * \brief   Méthode pour libérer la mémoire des arrêtes
+ */
 void free_edges()
 {
 	for (; edge_root; edge_root = e_next) {
@@ -53,6 +70,12 @@ void free_edges()
 heap_t *heap;
 int heap_len;
 
+/**
+ * \brief    Méthode d'ajout d'une arrête
+ * \param    *a       Pointeur sur le noeud de base.
+ * \param    *b       Pointeur sur le noeaud via lequel on arrive sur le noeud de base.
+ * \param    d        Distance(double) entre les deux noeuds.
+ */
 void set_dist(node_t *nd, node_t *via, double d)
 {
 	int i, j;
@@ -75,6 +98,9 @@ void set_dist(node_t *nd, node_t *via, double d)
 	nd->heap_idx = i;
 }
 
+/**
+ * \brief    Méthode pour étudier la queue.
+ */
 node_t * pop_queue()
 {
 	node_t *nd, *tmp;
@@ -101,6 +127,10 @@ node_t * pop_queue()
 
 /* --- Fonctions pour lancer dijkstra --- */
 
+/**
+ * \brief    Fonction de calcul des distances sur tout le graphe
+ * \param    *start  Pointeur sur le noeud de départ du graphe.
+ */
 void calc_all(node_t *start)
 {
 	node_t *lead;
@@ -113,6 +143,11 @@ void calc_all(node_t *start)
 			set_dist(e->nd, lead, lead->dist + e->len);
 }
 
+/**
+ * \brief    Méthode pour trouver le plus court chemin et déplacer le personnage selon ce dernier.
+ * \param    *nd       Pointeur sur le noeud à atteindre.
+ * \return   score    Le score (int,nombre de déplacements) du joueur.
+ */
 int show_path(node_t *nd, int score)
 {
 	if (nd->via == nd)
@@ -139,6 +174,10 @@ int show_path(node_t *nd, int score)
 }
 
 /* Construction du graphe en fonction de la carte */
+/**
+ * \brief    Fonction de construction du graphe
+ * \return   *nodes     Liste de tous les noeuds après construction du graphe.
+ */
 node_t* buildGraph(){
 
     int i;
@@ -421,6 +460,12 @@ node_t* buildGraph(){
 }
 
 // Fonction qui lance le "jeu"
+/**
+ * \brief    Fonction de lancement de l'agorithme de dijkstra et obtention du score.
+ * \param    tabR     Tableau contenant l'emplacement des ressources.
+ * \param    score    Le score(int) du joueur.
+ * \return   score    Le score(int) du joueur.
+ */
 int dijkstra (int tabR[],int score)
 {
     score=0;

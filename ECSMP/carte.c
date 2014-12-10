@@ -1,9 +1,22 @@
+/**
+ * \file      carte.c
+ * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
+ * \version   1.1
+ * \date      10 Décembre 2014
+ * \brief     Contient la fonction permettant d'associer les images "sprites" aux positions sur la carte.
+ *
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "carte.h"
 
+/**
+ * \brief      Chargement des images + initialisation des sprites pour les cases de la carte + position du personnage
+ * \details    Choix des positions grâce à la taille d'un sprite et chargement des images + gestion de la transparence
+ */
 void initilisationPositions()
 {
     positionChemin.x = TAILLE_SPRITE*2;

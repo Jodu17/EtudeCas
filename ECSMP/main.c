@@ -6,6 +6,16 @@ Date : Octobre/Novembre 2014
 Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 */
 
+/**
+ * \file      main.c
+ * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
+ * \version   1.1
+ * \date      10 Décembre 2014
+ * \brief     Crée et lance un jeu de collecte de ressources sur une carte 2D grâce à un algorithem de plus court chemin.
+ *
+ * \details   Fichier main du projet (définition de la carte, de l'emplacement des ressources)
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
@@ -95,6 +105,10 @@ int objet[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
+/**
+ * \brief      Main pour lancer le jeu
+ * \details    Gestion des événements (clavier) de l'utilisateur pour lancer le jeu
+ */
 int main(int argc, char *argv[])
 {
     score=0;
@@ -254,7 +268,10 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS; // Fermeture du programme
 }
 
-// Fonction d'affichage de la carte
+/**
+ * \brief      Fonction d'affichage de la carte
+ * \details    Affichage de la carte selon l'enum des cases (chemin, herbe...) et de la carte (tableau à 2 dimensions)
+ */
 void formationCarte()
 {
     for(j = 0;j<NB_SPRITES_LARGEUR;j++)
@@ -303,7 +320,9 @@ void formationCarte()
     }
 }
 
-// Fonction pour rafraichir pendant le déplacement du perso
+/**
+ * \brief      Méthode pour rafraichir l'écran selon la position du personnage
+ */
 void rafraichissementPositionPerso()
 {
             PosFinal.x = posPerso.x;
@@ -347,7 +366,9 @@ void rafraichissementPositionPerso()
             }
 }
 
-// Fonction pour placer les ressources sur la carte
+/**
+ * \brief      Placement des ressources sur la carte
+ */
 void placementObjets(int t)
 {
     if(t==1)
@@ -375,7 +396,10 @@ void placementObjets(int t)
     }
 }
 
-// Fonction permettant le ramassage des ressources
+/**
+ * \brief      Méthode de gestion du ramassage des ressources
+ * \details    Gestion selon la position des ressources et du personnage
+ */
 void gestionRamassage()
 {
     for(j = 0;j<NB_SPRITES_LARGEUR;j++)
