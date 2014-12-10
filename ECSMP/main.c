@@ -11,7 +11,7 @@ Annee Universitaire : 3ème Annee - Licence Informatique a La Rochelle
  * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
  * \version   1.1
  * \date      10 Decembre 2014
- * \brief     Cree et lance un jeu de collecte de ressources sur une carte 2D grâce a un algorithem de plus court chemin.
+ * \brief     Cree et lance un jeu de collecte de ressources sur une carte 2D grace a un algorithem de plus court chemin.
  *
  * \details   Fichier main du projet (definition de la carte, de l'emplacement des ressources)
  */

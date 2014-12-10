@@ -2,7 +2,7 @@
  * \file      carte.c
  * \author    PHAN Joseph, SEYDI Sarta, MONCAYO Loïc
  * \version   1.1
- * \date      10 Décembre 2014
+ * \date      10 Decembre 2014
  * \brief     Contient la fonction permettant d'associer les images "sprites" aux positions sur la carte.
  *
  */
