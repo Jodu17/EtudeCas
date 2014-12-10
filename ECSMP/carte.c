@@ -11,8 +11,8 @@ void initilisationPositions()
 //    positionChemin.h = TAILLE_SPRITE;
 //    positionChemin.w = TAILLE_SPRITE;
 
-    positionChemin.x = TAILLE_SPRITE*3;
-    positionChemin.y = TAILLE_SPRITE*2;
+    positionChemin.x = TAILLE_SPRITE*2;
+    positionChemin.y = TAILLE_SPRITE*0;
     positionChemin.h = TAILLE_SPRITE;
     positionChemin.w = TAILLE_SPRITE;
 
