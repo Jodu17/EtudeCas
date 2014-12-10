@@ -17,15 +17,15 @@ typedef struct node_t node_t, *heap_t;
 typedef struct edge_t edge_t;
 struct edge_t {
 	node_t *nd;	    /* Cible de l'arrête */
-	edge_t *sibling;/* for singly linked list */
+	edge_t *sibling;/* Arrête elle-même */
 	int len;	    /* Coût de l'arrête */
 };
 struct node_t {
-	edge_t *edge;	/* singly linked list of edges */
+	edge_t *edge;	/* Liste des arrêtes pour le noeud */
 	node_t *via;	/* Noeud precedent selon le plus court chemin */
 	double dist;	/* Distance depuis le noeud d'origine */
 	char name[8];	/* Nom du noeud */
-	int heap_idx;	/* link to heap position for updating distance */
+	int heap_idx;	/* Position dans la file */
 };
 
 
@@ -71,7 +71,7 @@ heap_t *heap;
 int heap_len;
 
 /**
- * \brief    Methode d'ajout d'une arrête
+ * \brief    Methode de calcul des distances entre 2 noeuds
  * \param    *a       Pointeur sur le noeud de base.
  * \param    *b       Pointeur sur le noeaud via lequel on arrive sur le noeud de base.
  * \param    d        Distance(double) entre les deux noeuds.
@@ -90,7 +90,7 @@ void set_dist(node_t *nd, node_t *via, double d)
 	i = nd->heap_idx;
 	if (!i) i = ++heap_len;
 
-	/* On depile */
+	/* On defile */
 	for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
 		(heap[i] = heap[j])->heap_idx = i;
 
