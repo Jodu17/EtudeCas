@@ -6,20 +6,10 @@
 
 void initilisationPositions()
 {
-//    positionChemin.x = TAILLE_SPRITE*2;
-//    positionChemin.y = TAILLE_SPRITE;
-//    positionChemin.h = TAILLE_SPRITE;
-//    positionChemin.w = TAILLE_SPRITE;
-
     positionChemin.x = TAILLE_SPRITE*2;
     positionChemin.y = TAILLE_SPRITE*0;
     positionChemin.h = TAILLE_SPRITE;
     positionChemin.w = TAILLE_SPRITE;
-
-//    positionHerbe.x = TAILLE_SPRITE;
-//    positionHerbe.y = TAILLE_SPRITE*8;
-//    positionHerbe.w = TAILLE_SPRITE;
-//    positionHerbe.h = TAILLE_SPRITE;
 
     positionHerbe.x = TAILLE_SPRITE*3;
     positionHerbe.y = 0;
@@ -40,11 +30,6 @@ void initilisationPositions()
     positionArbre.y = TAILLE_SPRITE*1;
     positionArbre.w = TAILLE_SPRITE;
     positionArbre.h = TAILLE_SPRITE;
-
-//    positionPerso.x = TAILLE_SPRITE*4;
-//    positionPerso.y = TAILLE_SPRITE*9;
-//    positionPerso.w = TAILLE_SPRITE;
-//    positionPerso.h = TAILLE_SPRITE;
 
     positionPerso.x = 0;
     positionPerso.y = 0;
@@ -68,29 +53,4 @@ void initilisationPositions()
     SDL_SetColorKey(gland, SDL_SRCCOLORKEY, SDL_MapRGB(gland->format, 255, 255, 255));
 
 }
-
-
-//void formationCarte()
-//{
-//    int i,j;
-//    for(i = 0;i<NB_SPRITES_LARGEUR;i++)
-//    {
-//        for(j=0;j<NB_SPRITES_HAUTEUR;j++)
-//        {
-//
-//            PosFinal.x = i*TAILLE_SPRITE;
-//            PosFinal.y = j*TAILLE_SPRITE;
-//
-//            switch(carte[i][j])
-//            {
-//                case CHEMIN:
-//                    SDL_BlitSurface(sprites, &positionChemin, ecran, &PosFinal);
-//                    break;
-//                case HERBE:
-//                    SDL_BlitSurface(sprites, &positionHerbe, ecran, &PosFinal);
-//                    break;
-//            }
-//        }
-//    }
-//}
 

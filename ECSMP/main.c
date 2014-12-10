@@ -21,21 +21,12 @@ Année Universitaire : 3ème Année - Licence Informatique à La Rochelle
 void gestionRamassage();
 void rafraichissementPositionPerso();
 
-    int score;
+    int score; // Variable pour le nombre de déplacements
     SDL_Event event;
     int i,j;
     bool exec = true;
-//    int carte[10][10]=  {{1,1,1,1,0,1,1,1,1,1},
-//                        {1,1,1,1,1,1,1,1,1,1},
-//                        {1,1,1,1,0,1,1,1,1,1},
-//                        {1,1,1,1,0,1,1,1,1,1},
-//                        {0,0,0,0,0,1,1,1,1,1},
-//                        {1,1,1,1,1,1,1,1,1,1},
-//                        {1,1,1,1,0,1,1,1,1,1},
-//                        {1,1,1,1,0,0,0,0,0,0},
-//                        {1,1,1,1,1,1,1,1,1,1},
-//                        {1,1,1,1,0,1,1,1,1,1}};
 
+// Carte de fond du jeu
 int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
    {{0,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1},
@@ -58,6 +49,7 @@ int carte[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
     {1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,0}};
 
+// Carte pour ajout des arbres sur l'herbe
 int carte2[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
    {{0,1,1,1,1,1,1,1,4,2,2,4,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,4,2,2,4,1,1,1,1,1,1,1,1},
@@ -80,18 +72,8 @@ int carte2[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
     {1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,4,2,2,4,1,1,1,1,1,1,1,0}};
 
-//    int objet[10][10]= {{0,0,0,0,0,0,0,0,1,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,0},
-//                        {1,0,0,0,0,0,0,0,0,0},
-//                        {0,0,0,0,0,0,0,0,0,1},
-//                        {0,0,0,1,0,0,0,0,0,0}};
-
-    int objet[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
+// Carte pour placements des ressources
+int objet[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
                        {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -116,6 +98,8 @@ int carte2[NB_SPRITES_LARGEUR][NB_SPRITES_HAUTEUR]=
 int main(int argc, char *argv[])
 {
     score=0;
+
+    // Variables pour écriture avec TTF
     TTF_Font *police, *police2 = NULL;
     SDL_Color couleurBlanche = {255, 255, 255};
     SDL_Color couleurScore = {0, 0, 0};
@@ -129,14 +113,14 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    /* Chargement de la police */
+    /* Chargement des polices */
     police = TTF_OpenFont("ARCHRISTY.ttf", 65);
     police2 = TTF_OpenFont("ARCHRISTY.ttf", 35);
     /* Écriture du texte dans la SDL_Surface texte en mode Blended (optimal) */
     texteP1 = TTF_RenderText_Blended(police, "PRESS ENTER TO", couleurBlanche);
     texteP2 = TTF_RenderText_Blended(police, "LAUNCH THE GAME !", couleurBlanche);
 
-
+    // Init des positions des cases et du personnage
     initilisationPositions();
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -150,12 +134,7 @@ int main(int argc, char *argv[])
 
     SDL_WM_SetCaption("2D GAME | 4 ACORNS", NULL);
 
-    //Seulement au début
-//    formationCarte();
-//
-//    placementObjets(1);
-//    SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
-
+    // Autres variables pour les positions des écritures
     SDL_Rect positionT;
     SDL_Rect positionT2;
     SDL_Rect positionScore;
@@ -169,10 +148,11 @@ int main(int argc, char *argv[])
     positionScore2.x = 150;
     positionScore2.y = 345;
 
+    // Affichage du texte
     SDL_BlitSurface(texteP1, NULL, ecran, &positionT); /* Blit du texte */
     SDL_BlitSurface(texteP2, NULL, ecran, &positionT2); /* Blit du texte */
 
-
+    // Initialisation du tableau avec la position des ressources
     int tabR[4];
     tabR[0]=14;
     tabR[1]=138;
@@ -206,13 +186,17 @@ int main(int argc, char *argv[])
                     versGauche();
                     break;
                 case SDLK_RETURN:
+                    // Affichage de la carte ...
                     formationCarte();
+                    // ... et des objets.
                     placementObjets(1);
                     SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
+                    // Lancement de l'algo
                     score=dijkstra(tabR,score);
                     if(score!=0){
+                        // Affichage du score
                         char sc[15];
                         char sco[3];
                         strcat(sc,"You win ! Score : ");
@@ -226,13 +210,17 @@ int main(int argc, char *argv[])
                         SDL_Flip(ecran);}
                     break;
                 case SDLK_KP_ENTER:
+                    // Affichage de la carte ...
                     formationCarte();
+                    // ... et des objets.
                     placementObjets(1);
                     SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
                     SDL_Flip(ecran);
                     SDL_Delay(2000);
+                    // Lancement de l'algo
                     score=dijkstra(tabR,score);
                     if(score!=0){
+                        // Affichage du score
                         char sc[13];
                         char sco[3];
                         strcat(sc,"Victoire ! Score : ");
@@ -246,21 +234,16 @@ int main(int argc, char *argv[])
                         SDL_Flip(ecran);}
                     break;
                     case SDLK_ESCAPE:
+                        // Pour quitter le jeu
                         exit(0);
                     break;
             }
-
-            //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-            //formationCarte();
-            //placementObjets(1);
-            //gestionRamassage();
-            //SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
-            //SDL_Flip(ecran);
             break;
         }
     }
 
-    SDL_FreeSurface(sprites); // On libère la surface
+    // Libération de la surface
+    SDL_FreeSurface(sprites);
 
     TTF_CloseFont(police);
     TTF_Quit();
@@ -271,6 +254,7 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS; // Fermeture du programme
 }
 
+// Fonction d'affichage de la carte
 void formationCarte()
 {
     for(j = 0;j<NB_SPRITES_LARGEUR;j++)
@@ -318,6 +302,8 @@ void formationCarte()
         }
     }
 }
+
+// Fonction pour rafraichir pendant le déplacement du perso
 void rafraichissementPositionPerso()
 {
             PosFinal.x = posPerso.x;
@@ -361,6 +347,7 @@ void rafraichissementPositionPerso()
             }
 }
 
+// Fonction pour placer les ressources sur la carte
 void placementObjets(int t)
 {
     if(t==1)
@@ -387,6 +374,8 @@ void placementObjets(int t)
         }
     }
 }
+
+// Fonction permettant le ramassage des ressources
 void gestionRamassage()
 {
     for(j = 0;j<NB_SPRITES_LARGEUR;j++)

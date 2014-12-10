@@ -6,30 +6,26 @@
 typedef struct node_t node_t, *heap_t;
 typedef struct edge_t edge_t;
 struct edge_t {
-	node_t *nd;	/* target of this edge */
+	node_t *nd;	    /* Cible de l'arrête */
 	edge_t *sibling;/* for singly linked list */
-	int len;	/* edge cost */
+	int len;	    /* Coût de l'arrête */
 };
 struct node_t {
 	edge_t *edge;	/* singly linked list of edges */
-	node_t *via;	/* where previous node is in shortest path */
-	double dist;	/* distance from origining node */
-	char name[8];	/* the, er, name */
+	node_t *via;	/* Noeud précédent selon le plus court chemin */
+	double dist;	/* Distance depuis le noeud d'origine */
+	char name[8];	/* Nom du noeud */
 	int heap_idx;	/* link to heap position for updating distance */
 };
 
 
 
-/* --- edge management --- */
-#ifdef BIG_EXAMPLE
-#	define BLOCK_SIZE (1024 * 32 - 1)
-#else
+/* --- Manipulation des arrêtes --- */
 #	define BLOCK_SIZE 32
-#endif
+
 edge_t *edge_root = 0, *e_next = 0;
 
-/* Don't mind the memory management stuff, they are besides the point.
-   Pretend e_next = malloc(sizeof(edge_t)) */
+
 void add_edge(node_t *a, node_t *b, double d)
 {
 	if (e_next == edge_root) {
@@ -53,7 +49,7 @@ void free_edges()
 	}
 }
 
-/* --- priority queue stuff --- */
+/* --- Queue de priorité --- */
 heap_t *heap;
 int heap_len;
 
@@ -61,17 +57,17 @@ void set_dist(node_t *nd, node_t *via, double d)
 {
 	int i, j;
 
-	/* already knew better path */
+	/* Déjà un plus court chemin */
 	if (nd->via && d >= nd->dist) return;
 
-	/* find existing heap entry, or create a new one */
+	/* Trouve une entrée heap existante ou en crée une */
 	nd->dist = d;
 	nd->via = via;
 
 	i = nd->heap_idx;
 	if (!i) i = ++heap_len;
 
-	/* upheap */
+	/* On dépile */
 	for (; i > 1 && nd->dist < heap[j = i/2]->dist; i = j)
 		(heap[i] = heap[j])->heap_idx = i;
 
@@ -103,7 +99,8 @@ node_t * pop_queue()
 	return nd;
 }
 
-/* --- Dijkstra stuff; unreachable nodes will never make into the queue --- */
+/* --- Fonctions pour lancer dijkstra --- */
+
 void calc_all(node_t *start)
 {
 	node_t *lead;
@@ -120,10 +117,8 @@ int show_path(node_t *nd, int score)
 {
 	if (nd->via == nd)
         return 0;
-		//printf("%s", nd->name);
 	else if (!nd->via)
         return 0;
-		//printf("%s(unreached)", nd->name);
 	else {
         score=show_path(nd->via,score);
 		if(nd==nd->via+1)
@@ -143,6 +138,7 @@ int show_path(node_t *nd, int score)
 	}
 }
 
+/* Construction du graphe en fonction de la carte */
 node_t* buildGraph(){
 
     int i;
@@ -150,9 +146,11 @@ node_t* buildGraph(){
     #	define N_NODES 400
 	node_t *nodes = calloc(sizeof(node_t), N_NODES);
 
+    // Définition de tous les noeuds
 	for (i = 0; i < N_NODES; i++)
 		sprintf(nodes[i].name, "%d", i);
 
+    // Défintion des obstacles (poids=1000 et non 1, donc jamais utilisés comme chemin
     for (i=8;i<12;i=i+1){
     add_edge(nodes+i+1, nodes+i, 1000);
     add_edge(nodes+i-1, nodes+i, 1000);
@@ -377,7 +375,7 @@ node_t* buildGraph(){
     add_edge(nodes+390, nodes+370, 1);
     add_edge(nodes+369, nodes+370, 1);
 
-
+    // Définition de toutes les arrêtes
 	for (i = 0; i < N_NODES; i++) {
             if(i!=80 && i!=100 && i!=120 && i!=140 && i!=99 && i!=119 && i!=139 && i!=159 &&
                 i!=299 && i!=319 && i!=339 && i!=359 && i!=83 && i!=84 &&
@@ -388,8 +386,7 @@ node_t* buildGraph(){
                 i!=129 && i!=130 && i!=131 && i!=132 && i!=133 && i!=134 && i!=135 && i!=136 &&
                 i!=143 && i!=144 && i!=145 && i!=146 && i!=147 && i!=148 && i!=149 && i!=150 &&
                 i!=151 && i!=152 && i!=153 && i!=154 && i!=155 && i!=156 && i!=28 && i!=29 && i!=30 && i!=31 &&
-                i!=168 && i!=169 && i!=170 && i!=171 && /*i!=188 && i!=189 &&
-                i!=190 && i!=191 && i!=208 && i!=209 && i!=210 && i!=211 &&*/ i!=228 && i!=229 && i!=230 && i!=231 &&
+                i!=168 && i!=169 && i!=170 && i!=171 && i!=228 && i!=229 && i!=230 && i!=231 &&
                 i!=248 && i!=249 && i!=250 && i!=251
                 && i!=388 && i!=389 && i!=390 && i!=391 && i!=8 && i!=9 && i!=10 && i!=11
                 && i!=268 && i!=269 && i!=270 && i!=271 && i!=272 && i!=273 && i!=274 && i!=275 && i!=276 && i!=277 && i!=278
@@ -423,10 +420,12 @@ node_t* buildGraph(){
     return nodes;
 }
 
+// Fonction qui lance le "jeu"
 int dijkstra (int tabR[],int score)
 {
     score=0;
-    //r1
+
+    // Ressource 1
     node_t* nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -437,7 +436,7 @@ int dijkstra (int tabR[],int score)
 
     free(heap);
 
-    //r2
+    // Ressource 2
     nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -448,7 +447,7 @@ int dijkstra (int tabR[],int score)
 
     free(heap);
 
-    //r3
+    // Ressource 3
     nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -459,7 +458,7 @@ int dijkstra (int tabR[],int score)
 
     free(heap);
 
-    //r4
+    // Ressource 4
     nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -470,7 +469,7 @@ int dijkstra (int tabR[],int score)
 
     free(heap);
 
-    //Arrivee
+    // Arrivée
     nodes=buildGraph();
 
     heap = calloc(sizeof(heap_t), N_NODES + 1);
@@ -479,10 +478,10 @@ int dijkstra (int tabR[],int score)
     calc_all(nodes+ tabR[3]);
     score=score+show_path(nodes + 399,score);
 
+    // Libération pour la mémoire
     free(heap);
     free(nodes);
 	free_edges();
 
 	return score;
-
 }
