@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    SDL_WM_SetCaption("2D GAME | 4 ACORNS", NULL);
+    SDL_WM_SetCaption("2D GAME | SQUIRREL ACORN", NULL);
 
     // Autres variables pour les positions des ecritures
     SDL_Rect positionT;
