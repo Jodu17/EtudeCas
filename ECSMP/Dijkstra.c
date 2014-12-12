@@ -158,16 +158,16 @@ int show_path(node_t *nd, int score)
         score=show_path(nd->via,score);
 		if(nd==nd->via+1)
             versDroite();
-            SDL_Delay(20);
+            SDL_Delay(30);
         if(nd==nd->via-1)
             versGauche();
-            SDL_Delay(20);
+            SDL_Delay(30);
         if(nd==nd->via+20)
             versBas();
-            SDL_Delay(20);
+            SDL_Delay(30);
         if(nd==nd->via-20)
             versHaut();
-            SDL_Delay(20);
+            SDL_Delay(30);
         score=score+1;
         return score;
 	}

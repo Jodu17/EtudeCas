@@ -476,8 +476,6 @@ void gestionRamassage()
                     formationCarte();
                     objet[i][j]=0;
                     placementObjets(1);
-                    //SDL_BlitSurface(perso, &positionPerso, ecran, &posPerso);
-                    //SDL_Flip(ecran);
                 }
             }
         }
